@@ -1,0 +1,72 @@
+#!/usr/bin/env bash
+
+action=$1
+param1=$2
+param2=$3
+
+disk() {
+  df -h
+}
+
+find_content() {
+  # $param1: text, $param2: dir, -I: ignore bin
+  grep -R -I $param1 $param2
+}
+
+find_file() {
+  grep -R -l $param1 $param2
+}
+
+port() {
+  # -p -a -n
+  netstat -pan | grep $param1
+}
+
+ps_find() {
+  ps -ef | grep $param1
+}
+
+dotar() {
+  # $param1: pkg, $param2: dir
+  tar -zcvf ${param1}.tar.gz $param2
+}
+
+untar() {
+  tar -zxvf $param1
+}
+
+usage() {
+  echo - my disk
+  echo - my find [text] [dir]
+  echo - my port [port]
+  echo - my ps [text]
+  echo - my tar [pkg] [dir]
+  echo - my tar [pkg]
+}
+
+case $action in
+  disk)
+    disk
+  ;;
+  find)
+    find_content
+  ;;
+  file)
+    find_file
+  ;;
+  port)
+    port
+  ;;
+  ps)
+    ps_find
+  ;;
+  tar)
+    dotar
+  ;;
+  untar)
+    untar
+  ;;
+  *)
+    usage
+  ;;
+esac

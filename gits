@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+
+loglog() {
+  echo
+  echo ------------------------------------------------------------
+}
+
+echo remotes:
+echo
+git remote
+loglog
+
+echo branches:
+echo
+git branch
+loglog
+
+echo stash:
+echo
+git stash list
+loglog
+
+echo status:
+echo
+git status
+loglog
+
+echo tags:
+echo
+git tag
