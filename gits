@@ -1,30 +1,30 @@
 #!/usr/bin/env bash
 
+msg=''
+
 loglog() {
   echo
   echo ------------------------------------------------------------
+  echo $msg
+  echo
 }
 
-echo remotes:
-echo
+msg='all remotes:'
+loglog
 git remote
-loglog
 
-echo branches:
-echo
+msg='all branches:'
+loglog
 git branch
-loglog
 
-echo stash:
-echo
+msg='latest 5 tags:'
+loglog
+git tag | tail -5
+
+msg='stash list:'
+loglog
 git stash list
-loglog
 
-echo status:
-echo
+msg='repo status:'
+loglog
 git status
-loglog
-
-echo tags:
-echo
-git tag

@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+
+msg=''
+
+log() {
+  echo
+  echo '----    ----    ----    ----    ----    ----    ----'
+  echo
+  echo $msg
+  echo
+}
+
+msg='all the remotes:'
+log
+git remote
+
+msg='all the branches:'
+log
+git branch
+
+msg='all the no merged branches:'
+log
+git branch --no-merged
+
+msg='try to fetch ...'
+log
+git fetch
+echo 'finished'
+
+msg='the latest five tags:'
+log
+git tag | tail -5
+
+msg='the stash list:'
+log
+git stash list
+
+msg='repo status:'
+log
+git status
+
+cd ..
