@@ -17,9 +17,16 @@ find_file() {
   grep -R -l $param1 $param2
 }
 
+pmem() {
+  local memusage=`ps -o vsz -p $param1 | grep -v VSZ`
+  ((memusage /= 1000))
+  echo $memusage
+}
+
 port() {
-  # -p -a -n
-  netstat -pan | grep $param1
+  netstat -an | grep $param1 | grep LISTEN | wc -l
+  echo
+  netstat -an | grep $param1 | grep LISTEN
 }
 
 ps_find() {
@@ -37,11 +44,13 @@ untar() {
 
 usage() {
   echo - my disk
-  echo - my find [text] [dir]
-  echo - my port [port]
-  echo - my ps [text]
-  echo - my tar [pkg] [dir]
-  echo - my tar [pkg]
+  echo - my find  [text] [dir]
+  echo - my file  [text] [dir]
+  echo - my pm    [pid]          show process memory
+  echo - my port  [port]
+  echo - my ps    [text]
+  echo - my tar   [pkg]  [dir]
+  echo - my untar [pkg]
 }
 
 case $action in
@@ -53,6 +62,9 @@ case $action in
   ;;
   file)
     find_file
+  ;;
+  pm)
+    pmem
   ;;
   port)
     port

@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+. util/kit.sh
+
+loglog 'ports listening:'
+netstat -an | grep LISTEN
+
+loglog 'disk usage:'
+df -g
