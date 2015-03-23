@@ -33,6 +33,10 @@ ps_find() {
   ps -ef | grep $param1
 }
 
+serve() {
+  python -m SimpleHTTPServer $param1
+}
+
 dotar() {
   # $param1: pkg, $param2: dir
   tar -zcvf ${param1}.tar.gz $param2
@@ -49,6 +53,7 @@ usage() {
   echo - my pm    [pid]          show process memory
   echo - my port  [port]
   echo - my ps    [text]
+  echo - my serve [port]
   echo - my tar   [pkg]  [dir]
   echo - my untar [pkg]
 }
@@ -71,6 +76,9 @@ case $action in
   ;;
   ps)
     ps_find
+  ;;
+  serve)
+    serve
   ;;
   tar)
     dotar
