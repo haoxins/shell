@@ -13,8 +13,25 @@ find_content() {
   grep -R -I $param1 $param2
 }
 
+os_version() {
+  local name=`uname -s`
+  local isDarwin=`echo $name | grep -i darwin`
+  local isLinux=`echo $name | grep -i linux`
+
+  if [ ! -z $isDarwin ]; then
+    # system_profiler SPSoftwareDataType
+    sw_vers -productVersion
+  elif [ ! -z $isLinux ]; then
+    cat /etc/os-release
+  fi
+}
+
 find_file() {
   grep -R -l $param1 $param2
+}
+
+my_ip() {
+  ifconfig | grep inet | grep netmask | grep broadcast | cut -d: -f2 | awk '{ print $2}'
 }
 
 pmem() {
@@ -50,6 +67,7 @@ usage() {
   echo - my disk
   echo - my find  [text] [dir]
   echo - my file  [text] [dir]
+  echo - my osv
   echo - my pm    [pid]          show process memory
   echo - my port  [port]
   echo - my ps    [text]
@@ -67,6 +85,12 @@ case $action in
   ;;
   file)
     find_file
+  ;;
+  ip)
+    my_ip
+  ;;
+  osv)
+    os_version
   ;;
   pm)
     pmem
