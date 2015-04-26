@@ -16,7 +16,9 @@ git_diff() {
 
 git_up() {
   git_diff
+  echo
   git commit -a
+  echo
   git push
 }
 
@@ -37,6 +39,12 @@ git_status() {
   git status
 }
 
+usage() {
+  echo gits status
+  echo gits diff
+  echo gits up - 'gits diff && commit && push'
+}
+
 case $action in
   diff)
     git_diff
@@ -44,7 +52,10 @@ case $action in
   up)
     git_up
   ;;
-  *)
+  status)
     git_status
+  ;;
+  *)
+    usage
   ;;
 esac
