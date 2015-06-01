@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+# check goi
+# TODO: goi -u ...
+
+# cat with color
+# [ccat](github.com/jingweno/ccat)
+goi github.com/jingweno/ccat
+
+# go monitor
+# [gomon](github.com/c9s/gomon)
+goi github.com/c9s/gomon
+
+# [gore](https://github.com/motemen/gore)
+
+# [httpie](https://github.com/jakubroztocil/httpie)
+# [httpdiff](https://github.com/jgrahamc/httpdiff)
+# [icdiff](https://github.com/jeffkaufman/icdiff)
+
+# [pgcli](https://github.com/amjith/pgcli)

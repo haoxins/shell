@@ -14,6 +14,10 @@ git_diff() {
   git diff --cached
 }
 
+git_log() {
+  git log --all --graph --abbrev-commit --date=relative --pretty=format:'%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'
+}
+
 git_up() {
   git_diff
   echo
@@ -36,7 +40,7 @@ git_status() {
   git stash list
 
   loglog 'repo status:'
-  git status
+  git status -sb
 }
 
 usage() {
@@ -48,6 +52,9 @@ usage() {
 case $action in
   diff)
     git_diff
+  ;;
+  log)
+    git_log
   ;;
   up)
     git_up
