@@ -1,9 +1,9 @@
-'use strict';
+'use strict'
 
-const http = require('http');
+const http = require('http')
 
 let app = http.createServer(function(req, res) {
-  res.end('ok');
-});
+  res.end('ok')
+})
 
-app.listen(3000);
+app.listen(3000)

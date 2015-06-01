@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+action=$1
+
+dir=`dirname $0`
+
+. ${dir}/util/kit.sh

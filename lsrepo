@@ -1,102 +1,102 @@
-#!/usr/bin/env iojs
+#!/usr/bin/env node
 
-'use strict';
+'use strict'
 
-const cp = require('child_process'),
-  params = process.argv.slice(2),
-  Path = require('path'),
-  resolve = Path.resolve,
-  fs = require('fs'),
-  os = require('os'),
-  join = Path.join;
+const params = process.argv.slice(2)
+const cp = require('child_process')
+const Path = require('path')
+const resolve = Path.resolve
+const fs = require('fs')
+const os = require('os')
+const join = Path.join
 
-const YELLOW = '\x1b[33m',
-  GREEN = '\x1b[32m',
-  RED = '\x1b[31m';
+const YELLOW = '\x1b[33m'
+const GREEN = '\x1b[32m'
+const RED = '\x1b[31m'
 
 const usage = `
   lsrepo anydir --not-clean    [--detail]
   lsrepo anydir --multi-branch [--detail]
   lsrepo anydir --multi-remote [--detail]
-`;
+`
 
-let printUsage = false,
-  multiRemote = false, // only show repos with multi remotes
-  multiBranch = false, // only show repos with multi branches
-  notClean = false, // only show repos not clean
-  showDetail = false,
-  dir = params[0] || '.',
-  EOL = os.EOL,
-  DEPTH = 6;
+let multiRemote = false // only show repos with multi remotes
+let multiBranch = false // only show repos with multi branches
+let printUsage = false
+let showDetail = false
+let notClean = false // only show repos not clean
+let dir = params[0] || '.'
+let EOL = os.EOL
+let DEPTH = 6
 
 if (dir.startsWith('--')) {
-  dir = '.';
+  dir = '.'
 }
 
-parseArgv(params);
+parseArgv(params)
 if (printUsage) {
-  console.info(usage);
-  process.exit(0);
+  console.info(usage)
+  process.exit(0)
 }
 
-dir = resolve(process.cwd(), dir);
+dir = resolve(process.cwd(), dir)
 
-let repoPaths = dirRepos(dir, DEPTH);
+let repoPaths = dirRepos(dir, DEPTH)
 
 repoPaths.forEach(function(p) {
-  getGitRepoInfo(p);
-});
+  getGitRepoInfo(p)
+})
 
 /**
  * @param {string} - dir
  */
 function getGitRepoInfo(dir) {
-  process.chdir(dir);
+  process.chdir(dir)
 
-  let remoteInfo = cp.spawnSync('git', ['remote']),
-    branchInfo = cp.spawnSync('git', ['branch']),
-    statusInfo = cp.spawnSync('git', ['status']);
+  let remoteInfo = cp.spawnSync('git', ['remote'])
+  let branchInfo = cp.spawnSync('git', ['branch'])
+  let statusInfo = cp.spawnSync('git', ['status'])
 
-  if (ignoreRepo(statusInfo, branchInfo, remoteInfo)) return;
+  if (ignoreRepo(statusInfo, branchInfo, remoteInfo)) return
 
-  let repoDir = GREEN + toLength(Path.basename(dir), 32) + dir;
+  let repoDir = GREEN + toLength(Path.basename(dir), 32) + dir
 
   if (showDetail) {
-    console.log(YELLOW + '----------------------------------------------------------------');
-    console.log(repoDir);
+    console.log(YELLOW + '----------------------------------------------------------------')
+    console.log(repoDir)
 
-    log(remoteInfo, 1);
-    log(branchInfo, 2);
-    log(statusInfo, 3);
+    log(remoteInfo, 1)
+    log(branchInfo, 2)
+    log(statusInfo, 3)
   } else {
-    console.log(repoDir);
+    console.log(repoDir)
   }
 }
 
 function ignoreRepo(statusInfo, branchInfo, remoteInfo) {
   if (notClean && statusInfo.status === 0) {
-    if (statusInfo.stdout.toString().includes('nothing to commit, working directory clean')) return true;
+    if (statusInfo.stdout.toString().includes('nothing to commit, working directory clean')) return true
   }
 
   if (multiBranch && branchInfo.status === 0) {
-    if (branchInfo.stdout.toString().split(EOL).length <= 2) return true;
+    if (branchInfo.stdout.toString().split(EOL).length <= 2) return true
   }
 
   if (multiRemote && remoteInfo.status === 0) {
-    if (remoteInfo.stdout.toString().split(EOL).length <= 2) return true;
+    if (remoteInfo.stdout.toString().split(EOL).length <= 2) return true
   }
 
-  return false;
+  return false
 }
 
 function log(result, flag) {
   if (result.status) {
     // error
-    return console.error(RED + result.stderr.toString());
+    return console.error(RED + result.stderr.toString())
   }
 
-  let COLOUR = '\x1b[3' + (flag + 3) + 'm';
-  console.info(COLOUR + result.stdout.toString());
+  let COLOUR = '\x1b[3' + (flag + 3) + 'm'
+  console.info(COLOUR + result.stdout.toString())
 }
 
 /**
@@ -104,15 +104,15 @@ function log(result, flag) {
  * @return {boolean}
  */
 function notDir(path) {
-  let isDir;
+  let isDir
 
   try {
-    isDir = fs.statSync(path).isDirectory();
+    isDir = fs.statSync(path).isDirectory()
   } catch (e) {
-    return true;
+    return true
   }
 
-  return !isDir;
+  return !isDir
 }
 
 /**
@@ -120,15 +120,15 @@ function notDir(path) {
  * @return {boolean}
  */
 function isRepo(dir) {
-  let p = join(dir, '.git');
+  let p = join(dir, '.git')
 
   try {
-    fs.statSync(p);
+    fs.statSync(p)
   } catch (e) {
-    return false;
+    return false
   }
 
-  return true;
+  return true
 }
 
 /**
@@ -137,28 +137,28 @@ function isRepo(dir) {
  * @return {array[string]}
  */
 function dirRepos(path, depth) {
-  if (!--depth) return [];
-  if (notDir(path)) return [];
-  if (isRepo(path)) return [path];
+  if (!--depth) return []
+  if (notDir(path)) return []
+  if (isRepo(path)) return [path]
 
-  let names = fs.readdirSync(path),
-    repos = [];
+  let names = fs.readdirSync(path)
+  let repos = []
 
   names.forEach(function(n) {
-    let p = join(path, n);
+    let p = join(path, n)
 
-    if (notDir(p)) return;
-    if (isRepo(p)) return repos.push(p);
+    if (notDir(p)) return
+    if (isRepo(p)) return repos.push(p)
 
-    repos = repos.concat(dirRepos(p, depth));
-  });
+    repos = repos.concat(dirRepos(p, depth))
+  })
 
-  return repos;
+  return repos
 }
 
 function toLength(string, length) {
   if (string.length < length) {
-    return string + ' '.repeat(length - string.length);
+    return string + ' '.repeat(length - string.length)
   }
 }
 
@@ -167,12 +167,12 @@ function toLength(string, length) {
  */
 function parseArgv(args) {
   let contains = function(key) {
-    return args.indexOf(key) !== -1;
-  };
+    return args.indexOf(key) !== -1
+  }
 
-  if (contains('--help')) printUsage = true;
-  if (contains('--detail')) showDetail = true;
-  if (contains('--not-clean')) notClean = true;
-  if (contains('--multi-branch')) multiBranch = true;
-  if (contains('--multi-remote')) multiRemote = true;
+  if (contains('--help')) printUsage = true
+  if (contains('--detail')) showDetail = true
+  if (contains('--not-clean')) notClean = true
+  if (contains('--multi-branch')) multiBranch = true
+  if (contains('--multi-remote')) multiRemote = true
 }

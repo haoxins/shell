@@ -46,6 +46,7 @@ git_status() {
 usage() {
   echo gits status
   echo gits diff
+  echo gits log
   echo gits up - 'gits diff && commit && push'
 }
 
