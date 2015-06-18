@@ -15,9 +15,18 @@ const GREEN = '\x1b[32m'
 const RED = '\x1b[31m'
 
 const usage = `
-  lsrepo anydir --not-clean    [--detail]
-  lsrepo anydir --multi-branch [--detail]
-  lsrepo anydir --multi-remote [--detail]
+  alias:
+    -h  --help
+    -d  --detail
+    -nc --not-clean
+    -mb --multi-branch
+    -mr --multi-remote
+
+  usage:
+
+    lsrepo anydir --not-clean    [--detail]
+    lsrepo anydir --multi-branch [--detail]
+    lsrepo anydir --multi-remote [--detail]
 `
 
 let multiRemote = false // only show repos with multi remotes
@@ -31,6 +40,9 @@ let DEPTH = 6
 
 if (dir.startsWith('--')) {
   dir = '.'
+} else if (dir === 'GO') {
+  dir = process.env.GOPATH
+  dir = dir ? join(dir, 'src/github.com') : '.'
 }
 
 parseArgv(params)
@@ -70,6 +82,9 @@ function getGitRepoInfo(dir) {
     log(statusInfo, 3)
   } else {
     console.log(repoDir)
+
+    if (multiBranch) log(branchInfo, 2)
+    if (multiRemote) log(remoteInfo, 1)
   }
 }
 
@@ -170,9 +185,9 @@ function parseArgv(args) {
     return args.indexOf(key) !== -1
   }
 
-  if (contains('--help')) printUsage = true
-  if (contains('--detail')) showDetail = true
-  if (contains('--not-clean')) notClean = true
-  if (contains('--multi-branch')) multiBranch = true
-  if (contains('--multi-remote')) multiRemote = true
+  if (contains('--help') || contains('-h')) printUsage = true
+  if (contains('--detail') || contains('-d')) showDetail = true
+  if (contains('--not-clean') || contains('-nc')) notClean = true
+  if (contains('--multi-branch') || contains('-mb')) multiBranch = true
+  if (contains('--multi-remote') || contains('-mr')) multiRemote = true
 }
