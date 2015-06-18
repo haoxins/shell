@@ -1,0 +1,55 @@
+#!/usr/bin/env node
+
+'use strict'
+
+const cp = require('child_process')
+const path = require('path')
+const fs = require('fs')
+
+function clone(dest) {
+  let result = cp.spawnSync('git', ['clone', dest])
+
+    if (result.status) {
+      console.error(result.stderr.toString())
+    } else {
+      console.info(result.stdout.toString())
+    }
+}
+
+function quit() {
+  console.error('invalid params, quit')
+  process.exit(1)
+}
+
+let params = process.argv.slice(2)
+if (params.length === 0) {
+  return quit()
+} else if (params.length === 1) {
+  if (!params[0].includes('/')) {
+    return quit()
+  }
+
+  params = params[0].split('/')
+}
+
+let dir = params[0]
+let repo = params[1]
+
+let dest = `git@github.com:${dir}/${repo}.git`
+console.log('clone: %s', dest)
+
+try {
+  fs.accessSync('./' + dir)
+  console.info('%s exists', dir)
+} catch (e) {
+  fs.mkdirSync(dir)
+}
+
+process.chdir('./' + dir)
+
+try {
+  fs.accessSync('./' + repo)
+  console.info('%s/%s exists', dir, repo)
+} catch (e) {
+  clone(dest)
+}
