@@ -2,6 +2,7 @@
 
 'use strict'
 
+const parse = require('./util/argv')
 const params = process.argv.slice(2)
 const cp = require('child_process')
 const Path = require('path')
@@ -181,13 +182,19 @@ function toLength(string, length) {
  * @param {array[string]}
  */
 function parseArgv(args) {
-  let contains = function(key) {
-    return args.indexOf(key) !== -1
-  }
+  let keys = new Set([
+    '-h', '--help',
+    '-d', '--detail',
+    '-nc', '--not-clean',
+    '-mb', '--multi-branch',
+    '-mr', '--multi-remote'
+  ])
 
-  if (contains('--help') || contains('-h')) printUsage = true
-  if (contains('--detail') || contains('-d')) showDetail = true
-  if (contains('--not-clean') || contains('-nc')) notClean = true
-  if (contains('--multi-branch') || contains('-mb')) multiBranch = true
-  if (contains('--multi-remote') || contains('-mr')) multiRemote = true
+  args = parse(args, keys)
+
+  if (args.has('--help') || args.has('-h')) printUsage = true
+  if (args.has('--detail') || args.has('-d')) showDetail = true
+  if (args.has('--not-clean') || args.has('-nc')) notClean = true
+  if (args.has('--multi-branch') || args.has('-mb')) multiBranch = true
+  if (args.has('--multi-remote') || args.has('-mr')) multiRemote = true
 }
