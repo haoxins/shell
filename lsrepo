@@ -13,6 +13,7 @@ const join = Path.join
 
 const YELLOW = '\x1b[33m'
 const GREEN = '\x1b[32m'
+const PINK = '\x1b[35m'
 const RED = '\x1b[31m'
 
 const usage = `
@@ -22,14 +23,17 @@ const usage = `
     -nc --not-clean
     -mb --multi-branch
     -mr --multi-remote
+    -rd --remote-detail
 
   usage:
 
-    lsrepo anydir --not-clean    [--detail]
-    lsrepo anydir --multi-branch [--detail]
-    lsrepo anydir --multi-remote [--detail]
+    lsrepo anydir --not-clean     [--detail]
+    lsrepo anydir --multi-branch  [--detail]
+    lsrepo anydir --multi-remote  [--detail]
+    lsrepo anydir --remote-detail [--detail]
 `
 
+let remoteDetail = false
 let multiRemote = false // only show repos with multi remotes
 let multiBranch = false // only show repos with multi branches
 let printUsage = false
@@ -61,7 +65,7 @@ repoPaths.forEach(function(p) {
 })
 
 /**
- * @param {string} - dir
+ * @param {string} dir
  */
 function getGitRepoInfo(dir) {
   process.chdir(dir)
@@ -86,6 +90,7 @@ function getGitRepoInfo(dir) {
 
     if (multiBranch) log(branchInfo, 2)
     if (multiRemote) log(remoteInfo, 1)
+    if (remoteDetail) logRemoteDetail(remoteInfo)
   }
 }
 
@@ -105,6 +110,64 @@ function ignoreRepo(statusInfo, branchInfo, remoteInfo) {
   return false
 }
 
+function logRemoteDetail(result) {
+  if (result.status) {
+    // error
+    return console.error('get remote info error')
+  }
+
+  result.stdout.toString().split('\n').forEach(function(remote) {
+    remote = remote.trim()
+
+    if (remote) {
+      let info = cp.spawnSync('git', ['remote', 'show', remote])
+
+      if (info.status) {
+        return console.error('get remote: %s detail error', remote)
+      }
+
+      let lines = info.stdout.toString().split('\n')
+      let fetchURL = ''
+      let pushURL = ''
+
+      for (let line of lines) {
+        line = line.trim()
+
+        if (line.startsWith('Fetch URL:')) {
+          fetchURL = trimURL(line.replace('Fetch URL:', ''))
+        }
+
+        if (line.startsWith('Push  URL:')) {
+          pushURL = trimURL(line.replace('Push  URL:', ''))
+
+          if (pushURL !== fetchURL) {
+            console.info(PINK + 'remote: %s, push  URL: %s', fetchURL)
+            console.info(PINK + 'remote: %s, fetch URL: %s', pushURL)
+          } else {
+            console.info(PINK + 'remote: %s - %s', remote, fetchURL)
+          }
+        }
+      }
+    }
+  })
+}
+
+/**
+ * @param {String} u
+ * @return {String}
+ */
+function trimURL(u) {
+  return u
+    .trim()
+    .replace(/^git@/, '')
+    .replace(/.git$/, '')
+    .replace(/^http:\/\//, '')
+    .replace(/^https:\/\//, '')
+    .replace(/^github.com/, '')
+    .replace(/:/g, '')
+    .replace(/^\//, '')
+}
+
 function log(result, flag) {
   if (result.status) {
     // error
@@ -116,7 +179,7 @@ function log(result, flag) {
 }
 
 /**
- * @param {string} - path
+ * @param {string} path
  * @return {boolean}
  */
 function notDir(path) {
@@ -132,7 +195,7 @@ function notDir(path) {
 }
 
 /**
- * @param {string} - dir
+ * @param {string} dir
  * @return {boolean}
  */
 function isRepo(dir) {
@@ -148,8 +211,8 @@ function isRepo(dir) {
 }
 
 /**
- * @param {string} - path
- * @param {number} - depth
+ * @param {string} path
+ * @param {number} depth
  * @return {array[string]}
  */
 function dirRepos(path, depth) {
@@ -187,7 +250,8 @@ function parseArgv(args) {
     '-d', '--detail',
     '-nc', '--not-clean',
     '-mb', '--multi-branch',
-    '-mr', '--multi-remote'
+    '-mr', '--multi-remote',
+    '-rd', '--remote-detail'
   ])
 
   args = parse(args, keys)
@@ -197,4 +261,5 @@ function parseArgv(args) {
   if (args.has('--not-clean') || args.has('-nc')) notClean = true
   if (args.has('--multi-branch') || args.has('-mb')) multiBranch = true
   if (args.has('--multi-remote') || args.has('-mr')) multiRemote = true
+  if (args.has('--remote-detail') || args.has('-rd')) remoteDetail = true
 }

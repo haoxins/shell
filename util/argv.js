@@ -24,7 +24,7 @@ function parse(argv, keys) {
     } else {
       m.set(argv[i], '')
     }
-
-    return m
   }
+
+  return m
 }
