@@ -3,30 +3,14 @@
 'use strict'
 
 const cp = require('child_process')
-const path = require('path')
 const fs = require('fs')
-
-function clone(dest) {
-  let result = cp.spawnSync('git', ['clone', dest])
-
-    if (result.status) {
-      console.error(result.stderr.toString())
-    } else {
-      console.info(result.stdout.toString())
-    }
-}
-
-function quit() {
-  console.error('invalid params, quit')
-  process.exit(1)
-}
 
 let params = process.argv.slice(2)
 if (params.length === 0) {
-  return quit()
+  quit()
 } else if (params.length === 1) {
   if (!params[0].includes('/')) {
-    return quit()
+    quit()
   }
 
   params = params[0].split('/')
@@ -37,6 +21,12 @@ let repo = params[1]
 
 let dest = `git@github.com:${dir}/${repo}.git`
 console.log('clone: %s', dest)
+
+const GITHUBDIR = process.env.GITHUBDIR
+if (GITHUBDIR) {
+  console.info('go to: %s', GITHUBDIR)
+  process.chdir(GITHUBDIR)
+}
 
 try {
   fs.accessSync('./' + dir)
@@ -51,5 +41,20 @@ try {
   fs.accessSync('./' + repo)
   console.info('%s/%s exists', dir, repo)
 } catch (e) {
-  clone(dest)
+  clone()
+}
+
+function clone() {
+  let result = cp.spawnSync('git', ['clone', dest])
+
+  if (result.status) {
+    console.error(result.stderr.toString())
+  } else {
+    console.info(result.stdout.toString())
+  }
+}
+
+function quit() {
+  console.error('invalid params, quit')
+  process.exit(1)
 }
