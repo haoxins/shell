@@ -8,17 +8,35 @@ const path = require('path')
 let pkgInfo = require(path.join(process.cwd(), 'package.json'))
 let params = process.argv.slice(2)
 
+let onlyDep = params.indexOf('--only-dep') !== -1
+let onlyDev = params.indexOf('--only-dev') !== -1
+let verbose = params.indexOf('--verbose') !== -1
+
 params = params.join(' ')
-  .replace('--save', '')
+  .replace('--only-dep', '')
+  .replace('--only-dev', '')
   .replace('--save-dev', '')
+  .replace('--verbose', '')
+  .replace('--save', '')
   .split(' ')
 
-if (pkgInfo.dependencies) {
-  install(pkgInfo.dependencies, '--save')
-}
+if (onlyDep) {
+  if (pkgInfo.dependencies) {
+    install(pkgInfo.dependencies, '--save')
+  }
+} else if (onlyDev) {
+  if (pkgInfo.devDependencies) {
+    install(pkgInfo.devDependencies, '--save-dev')
+  }
+} else {
+  // all
+  if (pkgInfo.dependencies) {
+    install(pkgInfo.dependencies, '--save')
+  }
 
-if (pkgInfo.devDependencies) {
-  install(pkgInfo.devDependencies, '--save-dev')
+  if (pkgInfo.devDependencies) {
+    install(pkgInfo.devDependencies, '--save-dev')
+  }
 }
 
 function install(deps, type) {
@@ -41,10 +59,12 @@ function install(deps, type) {
 
     result = cp.spawnSync('npm', args)
 
-    if (result.status) {
-      console.error(result.stderr.toString())
-    } else {
-      console.info(result.stdout.toString())
+    if (verbose) {
+      if (result.status) {
+        console.error(result.stderr.toString())
+      } else {
+        console.info(result.stdout.toString())
+      }
     }
   }
 }

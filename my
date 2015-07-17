@@ -46,6 +46,10 @@ port() {
   netstat -an | grep $param1 | grep LISTEN
 }
 
+ps_find_by_port() {
+  lsof -i :$param1
+}
+
 ps_find() {
   ps -ef | grep $param1
 }
@@ -65,15 +69,16 @@ untar() {
 
 usage() {
   echo - my disk
-  echo - my find  [text] [dir]
-  echo - my file  [text] [dir]
-  echo - my osv
-  echo - my pm    [pid]          show process memory
-  echo - my port  [port]
-  echo - my ps    [text]
-  echo - my serve [port]
-  echo - my tar   [pkg]  [dir]
-  echo - my untar [pkg]
+  echo - my find   [text] [dir]
+  echo - my file   [text] [dir]
+  echo - my osversion
+  echo - my pm     [pid]          show process memory
+  echo - my port   [port]
+  echo - my ps     [text]
+  echo - my psport [port]
+  echo - my serve  [port]
+  echo - my tar    [pkg]  [dir]
+  echo - my untar  [pkg]
 }
 
 case $action in
@@ -89,7 +94,7 @@ case $action in
   ip)
     my_ip
   ;;
-  osv)
+  osversion)
     os_version
   ;;
   pm)
@@ -100,6 +105,9 @@ case $action in
   ;;
   ps)
     ps_find
+  ;;
+  psport)
+    ps_find_by_port
   ;;
   serve)
     serve
