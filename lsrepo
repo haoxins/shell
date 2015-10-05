@@ -27,6 +27,7 @@ const usage = `
 
   usage:
 
+    lsrepo anydir [--detail]
     lsrepo anydir --not-clean     [--detail]
     lsrepo anydir --multi-branch  [--detail]
     lsrepo anydir --multi-remote  [--detail]
