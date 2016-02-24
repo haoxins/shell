@@ -2,6 +2,9 @@
 
 'use strict'
 
+const dirRepos = require('./util/git').dirRepos
+const isRepo = require('./util/git').isRepo
+const notDir = require('./util/git').notDir
 const parse = require('./util/argv')
 const params = process.argv.slice(2)
 const cp = require('child_process')
@@ -117,7 +120,7 @@ function logRemoteDetail(result) {
     return console.error('get remote info error')
   }
 
-  result.stdout.toString().split('\n').forEach(function(remote) {
+  result.stdout.toString().split('\n').forEach(remote => {
     remote = remote.trim()
 
     if (remote) {
@@ -177,63 +180,6 @@ function log(result, flag) {
 
   let COLOUR = '\x1b[3' + (flag + 3) + 'm'
   console.info(COLOUR + result.stdout.toString())
-}
-
-/**
- * @param {string} path
- * @return {boolean}
- */
-function notDir(path) {
-  let isDir
-
-  try {
-    isDir = fs.statSync(path).isDirectory()
-  } catch (e) {
-    return true
-  }
-
-  return !isDir
-}
-
-/**
- * @param {string} dir
- * @return {boolean}
- */
-function isRepo(dir) {
-  let p = join(dir, '.git')
-
-  try {
-    fs.statSync(p)
-  } catch (e) {
-    return false
-  }
-
-  return true
-}
-
-/**
- * @param {string} path
- * @param {number} depth
- * @return {array[string]}
- */
-function dirRepos(path, depth) {
-  if (!--depth) return []
-  if (notDir(path)) return []
-  if (isRepo(path)) return [path]
-
-  let names = fs.readdirSync(path)
-  let repos = []
-
-  names.forEach(function(n) {
-    let p = join(path, n)
-
-    if (notDir(p)) return
-    if (isRepo(p)) return repos.push(p)
-
-    repos = repos.concat(dirRepos(p, depth))
-  })
-
-  return repos
 }
 
 function toLength(string, length) {

@@ -1,0 +1,75 @@
+#!/usr/bin/env node
+
+'use strict'
+
+const dirRepos = require('./util/git').dirRepos
+const notDir = require('./util/git').notDir
+const cp = require('child_process')
+const join = require('path').join
+const fs = require('fs')
+
+const gopath = process.env.GOPATH
+
+if (!gopath) {
+  console.info('unknown GOPATH')
+  process.exit(1)
+}
+
+const srcdir = join(gopath, 'src')
+
+const allrepos = dirRepos(srcdir, 4)
+
+allrepos.forEach(p => isCleanReop(p))
+
+function isCleanReop(p) {
+  process.chdir(p)
+
+  const branches = toString(cp.spawnSync('git', ['branch'])).split('\n')
+  const status = toString(cp.spawnSync('git', ['status']))
+
+  const repo = p.replace(srcdir, '')
+
+  if (branches.length > 1) {
+    console.info('repo: %s has multi branches: \n\n%s', repo,
+      branches.map(b => b.trim()).join('\n'))
+    console.info('\n')
+  }
+
+  if (notClean(status)) {
+    console.info('repo: %s not clean. \n\n%s', repo, status)
+    console.info('\n')
+  }
+}
+
+function toString(result) {
+  if (result.status) {
+    // error
+    console.error(result.stderr.toString())
+    return ''
+  }
+
+  return result.stdout.toString().trim()
+}
+
+function notClean(status) {
+  const lines = status.split('\n')
+
+  if (lines.length !== 3) {
+    return true
+  }
+
+  if (!lines[0].startsWith('On branch')) {
+    return true
+  }
+
+  if (!lines[1].startsWith('Your branch is up-to-date with')) {
+    // if there is a unpushed branch -> not clean
+    return true
+  }
+
+  if (!lines[2].startsWith('nothing to commit, working directory clean')) {
+    return true
+  }
+
+  return false
+}
