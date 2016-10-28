@@ -6,14 +6,17 @@ const cp = require('child_process')
 const fs = require('fs')
 
 let params = process.argv.slice(2)
-if (params.length === 0) {
-  quit()
-} else if (params.length === 1) {
-  if (!params[0].includes('/')) {
-    quit()
-  }
+if (params.length !== 1) {
+  return quit()
+}
 
-  params = params[0].split('/')
+if (!params[0].includes('/')) {
+  return quit()
+}
+
+params = params[0].split('/')
+if (params.length !== 2) {
+  return quit()
 }
 
 let dir = params[0]
@@ -56,5 +59,6 @@ function clone() {
 
 function quit() {
   console.error('invalid params, quit')
+  console.info('usage: gitclone owner/repo')
   process.exit(1)
 }

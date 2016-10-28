@@ -1,7 +1,7 @@
 
 ### tool
 
-* some command tools
+* some command line tools
 
 ### ENV
 
