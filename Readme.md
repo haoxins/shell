@@ -1,7 +1,7 @@
 
 ### tool
 
-* some command line tools
+* CLIs for myself
 
 ### ENV
 

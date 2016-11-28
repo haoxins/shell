@@ -1,6 +1,6 @@
 // Place your settings in this file to overwrite the default settings
 {
-  "editor.fontSize": 16,
+  "editor.fontSize": 18,
   "editor.renderWhitespace": true,
   "editor.tabSize": 2,
   "editor.scrollBeyondLastLine": false,

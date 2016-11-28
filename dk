@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+action=$1
+param1=$2
+param2=$3
+
+enter() {
+  docker exec -it $param1 /bin/bash -c "export TERM=xterm; exec bash"
+}
+
+usage() {
+  echo 'dk - docker'
+  echo '  dk enter <id>'
+}
+
+case $action in
+  enter)
+    enter
+  ;;
+  *)
+    usage
+  ;;
+esac
