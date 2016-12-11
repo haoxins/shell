@@ -8,6 +8,10 @@ remove_exited_containers() {
   docker rm $(docker ps --all -q -f status=exited)
 }
 
+stop_running_containers() {
+  docker stop $(docker ps --all -q -f status=running)
+}
+
 enter() {
   docker exec -it $param1 /bin/bash -c "export TERM=xterm; exec bash"
 }
@@ -22,17 +26,21 @@ ps() {
 
 usage() {
   echo 'dk - docker'
-  echo '  dk rma'
-  echo '  dk enter <id>'
-  echo '  dk run <name>'
-  echo '  dk ps'
+  echo '  dk enter <id>   enter running container'
+  echo '  dk run <name>   start container by name'
+  echo '  dk stopall      stop all running containers'
+  echo '  dk rmall        remove all exited containers'
+  echo '  dk ps           ps with special format'
 }
 
 case $action in
   enter)
     enter
   ;;
-  rma)
+  stopall)
+    stop_running_containers
+  ;;
+  rmall)
     remove_exited_containers
   ;;
   run)

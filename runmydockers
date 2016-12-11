@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+
+# postgres
+
+docker run --name hx-pg -p 5432:5432 \
+  -e POSTGRES_PASSWORD=123456 \
+  -e POSTGRES_USER=hx \
+  -d postgres
+
+# mysql
+
+docker run --name hx-mysql -p 3306:3306 \
+  -e MYSQL_ROOT_PASSWORD=123456 \
+  -e MYSQL_PASSWORD=123456 \
+  -e MYSQL_USER=hx \
+  -d mysql
+
+# redis
+
+docker run --name hx-redis -p 6379:6379 \
+  -d redis redis-server --appendonly yes
+
+# mongo
+
+docker run --name hx-mongo -p 27017:27017 \
+  -d mongo --storageEngine wiredTiger
+
+# rabbitmq
+
+# more ..., TODO ...
