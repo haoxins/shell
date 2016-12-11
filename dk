@@ -4,18 +4,42 @@ action=$1
 param1=$2
 param2=$3
 
+remove_exited_containers() {
+  docker rm $(docker ps --all -q -f status=exited)
+}
+
 enter() {
   docker exec -it $param1 /bin/bash -c "export TERM=xterm; exec bash"
 }
 
+run() {
+  docker run -d $param1
+}
+
+ps() {
+  docker ps --format '{{.ID}} - {{.Image}} - {{.Status}}' $param1
+}
+
 usage() {
   echo 'dk - docker'
+  echo '  dk rma'
   echo '  dk enter <id>'
+  echo '  dk run <name>'
+  echo '  dk ps'
 }
 
 case $action in
   enter)
     enter
+  ;;
+  rma)
+    remove_exited_containers
+  ;;
+  run)
+    run
+  ;;
+  ps)
+    ps
   ;;
   *)
     usage
