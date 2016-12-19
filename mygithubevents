@@ -1,0 +1,65 @@
+#!/usr/bin/env node
+
+'use strict'
+
+const request = require('requisition')
+const moment = require('moment')
+
+const silent = !Array.from(process.argv).includes('--all')
+
+setTimeout(() => {}, 20000)
+
+request('https://api.github.com/users/coderhaoxin/events')
+  .then(res => res.json())
+  .then(events => {
+    events
+      .slice(0, 30)
+      .map(e => {
+        const type = e.type.replace('Event', '')
+
+        const { payload, actor, repo } = e
+
+        const t = moment(e.created_at).fromNow()
+
+        if (!silent) {
+          console.info(type)
+        }
+
+        switch (type) {
+          case 'PullRequest':
+            console.info(t, ' - ', payload.action, 'pull request:', payload.pull_request.url)
+            break
+          case 'Issues':
+            if (!silent) {
+              console.info(t, ' - ', payload.action, 'issue:', payload.issue.url)
+            }
+            break
+          case 'Create':
+            console.info(t, ' - ', 'create repo:', repo.name)
+            break
+          case 'IssueComment':
+            if (!silent) {
+              console.info(t, ' - ', 'comment issue:', payload.issue.url)
+            }
+            break
+          case 'Push':
+            console.info(t, ' - ', 'push repo:', repo.name)
+            break
+          case 'Fork':
+            if (!silent) {
+              console.info(t, ' - ', 'fork', repo.name, 'to', payload.forkee.full_name)
+            }
+            break
+          case 'Member':
+            console.info(t, ' - ', actor.login, payload.action, payload.member.login, 'to', repo.name)
+            break
+          case 'Delete':
+            console.info(t, ' - ', 'delete', repo.name, payload.ref_type, payload.ref)
+            break
+          default:
+            console.info(e)
+        }
+      })
+
+      process.exit(0)
+  })

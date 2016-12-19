@@ -25,6 +25,10 @@ docker run --name hx-redis -p 6379:6379 \
 docker run --name hx-mongo -p 27017:27017 \
   -d mongo --storageEngine wiredTiger
 
+# elasticsearch
+
+docker run --name hx-elastic -d elasticsearch
+
 # rabbitmq
 
 # more ..., TODO ...
