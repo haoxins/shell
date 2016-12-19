@@ -1,0 +1,8 @@
+{
+  "name": "tool",
+  "private": true,
+  "dependencies": {
+    "moment": "2",
+    "requisition": "1"
+  }
+}
