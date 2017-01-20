@@ -12,8 +12,12 @@ setTimeout(() => {}, 20000)
 request('https://api.github.com/users/coderhaoxin/events')
   .then(res => res.json())
   .then(events => {
+    if (!Array.isArray(events)) {
+      return console.info(events)
+    }
+
     events
-      .slice(0, 30)
+      .slice(0, 100)
       .map(e => {
         const type = e.type.replace('Event', '')
 
@@ -35,7 +39,7 @@ request('https://api.github.com/users/coderhaoxin/events')
             }
             break
           case 'Create':
-            console.info(t, ' - ', 'create repo:', repo.name)
+            console.info(t, ' - ', 'create', payload.ref_type, payload.ref , 'repo:', repo.name)
             break
           case 'IssueComment':
             if (!silent) {
@@ -55,6 +59,11 @@ request('https://api.github.com/users/coderhaoxin/events')
             break
           case 'Delete':
             console.info(t, ' - ', 'delete', repo.name, payload.ref_type, payload.ref)
+            break
+          case 'PullRequestReviewComment':
+            if (!silent) {
+              console.info(t, ' - ', 'PR review comment', repo.name)
+            }
             break
           default:
             console.info(e)
