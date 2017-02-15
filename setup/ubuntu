@@ -8,7 +8,7 @@ sudo apt-get install -y build-essential
 
 # zsh
 
-sudo apt-get install zsh
+sudo apt-get install -y zsh
 
 wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | zsh
 
@@ -21,5 +21,12 @@ sudo apt-get install -y nodejs
 
 # golang
 
-wget https://storage.googleapis.com/golang/go1.8rc3.linux-amd64.tar.gz
-tar -zxvf  go1.7.1.linux-amd64.tar.gz -C /usr/local/
+wget -qO- https://storage.googleapis.com/golang/go1.8rc3.linux-amd64.tar.gz | tar -xvz -C /usr/local/
+
+### add path /usr/local/go/bin and GOPATH/bin
+
+# vim config
+
+git clone https://github.com/amix/vimrc.git ~/.vim_runtime
+
+sh ~/.vim_runtime/install_awesome_vimrc.sh
