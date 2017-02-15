@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+
+# just for dev
+
+sudo apt-get update
+
+sudo apt-get install -y build-essential
+
+# zsh
+
+sudo apt-get install zsh
+
+wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | zsh
+
+chsh -s `which zsh`
+
+# nodejs
+
+curl -sL https://deb.nodesource.com/setup_7.x | sudo -E bash -
+sudo apt-get install -y nodejs
+
+# golang
+
+wget https://storage.googleapis.com/golang/go1.8rc3.linux-amd64.tar.gz
+tar -zxvf  go1.7.1.linux-amd64.tar.gz -C /usr/local/
