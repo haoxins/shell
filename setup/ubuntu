@@ -21,7 +21,7 @@ sudo apt-get install -y nodejs
 
 # golang
 
-wget -qO- https://storage.googleapis.com/golang/go1.8rc3.linux-amd64.tar.gz | tar -xvz -C /usr/local/
+wget -qO- https://storage.googleapis.com/golang/go1.8.linux-amd64.tar.gz | tar -xvz -C /usr/local/
 
 ### add path /usr/local/go/bin and GOPATH/bin
 
