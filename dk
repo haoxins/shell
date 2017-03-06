@@ -12,6 +12,22 @@ stop_running_containers() {
   docker stop $(docker ps --all -q -f status=running)
 }
 
+remove_none_images() {
+  # TODO - check dangling images exists !
+  docker rmi $(docker images -f "dangling=true" -q)
+}
+
+remove_images() {
+  case $param1 in
+    none)
+      remove_none_images
+    ;;
+    *)
+      echo 'unknown image type'
+    ;;
+  esac
+}
+
 enter() {
   docker exec -it $param1 /bin/bash -c "export TERM=xterm; exec bash"
 }
@@ -28,6 +44,7 @@ usage() {
   echo 'dk - docker'
   echo '  dk enter <id>   enter running container'
   echo '  dk run <name>   start container by name'
+  echo '  dk rmi <type>   remove special type images'
   echo '  dk stopall      stop all running containers'
   echo '  dk rmall        remove all exited containers'
   echo '  dk ps           ps with special format'
@@ -42,6 +59,9 @@ case $action in
   ;;
   rmall)
     remove_exited_containers
+  ;;
+  rmi)
+    remove_images
   ;;
   run)
     run
