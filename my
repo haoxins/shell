@@ -55,7 +55,7 @@ ps_find() {
 }
 
 serve() {
-  python -m SimpleHTTPServer $param1
+  python3 -m http.server $param1
 }
 
 dotar() {
