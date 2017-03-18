@@ -22,7 +22,12 @@ if (params.length !== 2) {
 let dir = params[0]
 let repo = params[1]
 
-let dest = `git@github.com:${dir}/${repo}.git`
+let extra = ''
+if (dir === 'haoxins') {
+  extra = '-haoxins'
+}
+
+let dest = `git@github.com${extra}:${dir}/${repo}.git`
 console.log('clone: %s', dest)
 
 const GITHUBDIR = process.env.GITHUBDIR
