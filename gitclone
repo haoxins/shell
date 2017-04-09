@@ -23,9 +23,9 @@ let dir = params[0]
 let repo = params[1]
 
 let extra = ''
-if (dir === 'haoxins') {
-  extra = '-haoxins'
-}
+// if (dir === 'haoxins') {
+//   extra = '-haoxins'
+// }
 
 let dest = `git@github.com${extra}:${dir}/${repo}.git`
 console.log('clone: %s', dest)
