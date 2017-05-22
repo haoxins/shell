@@ -8,5 +8,11 @@
   "git.enabled": true,
   "files.trimTrailingWhitespace": true,
   "javascript.validate.enable": false,
-  "css.validate": false
+  "css.validate": false,
+  "workbench.iconTheme": "vs-seti",
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "vue"
+  ]
 }
