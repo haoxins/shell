@@ -3,20 +3,29 @@
 'use strict'
 
 const cp = require('child_process')
+const { join } = require('path')
 const fs = require('fs')
 
+let mode = 'normal' // or 'golang'
+
 let params = process.argv.slice(2)
+
+if (params[0] === '-go') {
+  mode = 'golang'
+  params.shift()
+}
+
 if (params.length !== 1) {
-  return quit()
+  quit()
 }
 
 if (!params[0].includes('/')) {
-  return quit()
+  quit()
 }
 
 params = params[0].split('/')
 if (params.length !== 2) {
-  return quit()
+  quit()
 }
 
 let dir = params[0]
@@ -30,8 +39,13 @@ let extra = ''
 let dest = `git@github.com${extra}:${dir}/${repo}.git`
 console.log('clone: %s', dest)
 
+const GOPATH = join(process.env.GOPATH, 'src/github.com')
 const GITHUBDIR = process.env.GITHUBDIR
-if (GITHUBDIR) {
+
+if (mode === 'golang') {
+  console.info('go to: %s', GOPATH)
+  process.chdir(GOPATH)
+} else if (GITHUBDIR) {
   console.info('go to: %s', GITHUBDIR)
   process.chdir(GITHUBDIR)
 }
@@ -64,6 +78,6 @@ function clone() {
 
 function quit() {
   console.error('invalid params, quit')
-  console.info('usage: gitclone owner/repo')
+  console.info('usage: gitclone [-go] owner/repo')
   process.exit(1)
 }
