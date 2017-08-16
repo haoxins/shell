@@ -45,9 +45,9 @@ pmem() {
 }
 
 port() {
-  netstat -an | grep $param1 | grep LISTEN | wc -l
+  netstat -vanp tcp | grep $param1 | grep LISTEN | wc -l
   echo
-  netstat -an | grep $param1 | grep LISTEN
+  netstat -vanp tcp | grep $param1 | grep LISTEN
 }
 
 ps_find_by_port() {
