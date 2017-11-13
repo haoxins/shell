@@ -28,6 +28,21 @@ remove_images() {
   esac
 }
 
+remove_dangling_volumes() {
+  docker volume rm $(docker volume ls -qf dangling=true)
+}
+
+remove_volumes() {
+  case $param1 in
+    none)
+      remove_dangling_volumes
+    ;;
+    *)
+      echo 'unknown volume type'
+    ;;
+  esac
+}
+
 enter() {
   docker exec -it $param1 /bin/bash -c "export TERM=xterm; exec bash"
 }
@@ -45,6 +60,7 @@ usage() {
   echo '  dk enter <id>   enter running container'
   echo '  dk run <name>   start container by name'
   echo '  dk rmi <type>   remove special type images'
+  echo '  dk rmv <type>   remove special type volumes'
   echo '  dk stopall      stop all running containers'
   echo '  dk rmall        remove all exited containers'
   echo '  dk ps           ps with special format'
@@ -59,6 +75,9 @@ case $action in
   ;;
   rmall)
     remove_exited_containers
+  ;;
+  rmv)
+    remove_volumes
   ;;
   rmi)
     remove_images
