@@ -6,7 +6,7 @@ import (
 	"path"
 
 	"github.com/docopt/docopt-go"
-	"github.com/pkg4go/pkgs/console"
+	"github.com/pkg4go/tty"
 )
 
 func main() {
@@ -41,7 +41,7 @@ func main() {
 	// get key
 	if setKey {
 		fmt.Println(" $ input the key")
-		key = console.InterceptLine()
+		key = tty.InterceptLine()
 	} else {
 		// default key
 		key = path.Base(filepath)
@@ -64,7 +64,7 @@ func main() {
 	if replace {
 		if interactive {
 			fmt.Printf("\n $ replace the file: %s with above data (y or n) \n", filepath)
-			if console.ReadChar() == "y" {
+			if tty.ReadChar() == "y" {
 				write(filepath, result)
 			}
 		} else {
