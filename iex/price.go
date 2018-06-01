@@ -6,6 +6,7 @@ import (
 	"io/ioutil"
 	"strings"
 
+	"github.com/mozillazg/go-pinyin"
 	"golang.org/x/text/encoding/simplifiedchinese"
 	"golang.org/x/text/transform"
 )
@@ -28,6 +29,13 @@ func getPrice() {
 		s = strings.Replace(s, `";`, "", 1)
 		a := strings.Split(s, ",")
 
-		fmt.Printf("%s: %s\n", a[0], a[3])
+		p := pinyin.NewArgs()
+		py := pinyin.Pinyin(a[0], p)
+
+		s = ""
+		for _, r := range py {
+			s += r[0] + " "
+		}
+		fmt.Printf("%s: %s\n", s, a[3])
 	}
 }
