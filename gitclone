@@ -6,15 +6,18 @@ const cp = require('child_process')
 const { join } = require('path')
 const fs = require('fs')
 
-let mode = 'normal' // or 'golang'
+const MODE_HX = 'coderhaoxin'
+const MODE_GO = 'golang'
+
+let mode = 'normal'
 
 let params = process.argv.slice(2)
 
 if (params[0] === '-go') {
-  mode = 'golang'
+  mode = MODE_GO
   params.shift()
 } else if (params[0] === '-hx') {
-  mode = 'coderhaoxin'
+  mode = MODE_HX
   params.shift()
 }
 
@@ -35,7 +38,7 @@ let dir = params[0]
 let repo = params[1]
 
 let extra = ''
-if (mode === 'coderhaoxin') {
+if (mode === MODE_HX) {
   extra = '-coderhaoxin'
 }
 
@@ -45,7 +48,7 @@ console.log('clone: %s', dest)
 const GOPATH = join(process.env.GOPATH, 'src/github.com')
 const GITHUBDIR = process.env.GITHUBDIR
 
-if (mode === 'golang') {
+if (mode === MODE_GO) {
   console.info('go to: %s', GOPATH)
   process.chdir(GOPATH)
 } else if (GITHUBDIR) {
