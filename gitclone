@@ -6,7 +6,7 @@ const cp = require('child_process')
 const { join } = require('path')
 const fs = require('fs')
 
-const USER_HX = 'coderhaoxin'
+const USER_HX = 'haoxins'
 const MODE_GO = 'golang'
 
 let mode = 'normal'
@@ -38,7 +38,7 @@ let repo = params[1]
 let extra = ''
 if (dir !== 'airwallex') {
   user = USER_HX
-  extra = '-coderhaoxin'
+  extra = '-haoxins'
 }
 
 let dest = `git@github.com${extra}:${dir}/${repo}.git`
