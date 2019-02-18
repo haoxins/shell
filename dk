@@ -1,4 +1,4 @@
-#!/usr/bin/env elixir
+#! /usr/bin/env elixir
 
 usage = """
   usage:
@@ -11,45 +11,59 @@ usage = """
     dk ps           ps with special format
 """
 
-case System.argv do
+case System.argv() do
   [a1, a2] when a1 == "run" ->
     # run <name>
     System.cmd("docker", ["run", "-d", a2])
+
   [a1, a2] when a1 == "rmi" and a2 == "none" ->
     # rmi <type>
     {ps_result, _} = System.cmd("docker", ["images", "-f", "dangling=true", "-q"])
     [_ | list] = Enum.reverse(String.split(ps_result, "\n"))
+
     if length(list) > 0 do
       System.cmd("docker", ["rmi" | list])
     end
+
   [a1, a2] when a1 == "rmv" and a2 == "none" ->
     # rmv <type>
     {ps_result, _} = System.cmd("docker", ["volume", "ls", "-qf", "dangling=true"])
     [_ | list] = Enum.reverse(String.split(ps_result, "\n"))
+
     if length(list) > 0 do
       System.cmd("docker", ["volume", "rm" | list])
     end
+
   [a1, a2] when a1 == "enter" ->
     # enter
     System.cmd("docker", ["exec", "-it", a2, "/bin/bash", "-c", "'export TERM=xterm; exec bash'"])
+
   [a] when a == "stopall" ->
     # stopall
     {ps_result, _} = System.cmd("docker", ["ps", "--all", "-q", "-f", "status=running"])
     [_ | list] = Enum.reverse(String.split(ps_result, "\n"))
+
     if length(list) > 0 do
       System.cmd("docker", ["stop" | list])
     end
+
   [a] when a == "rmall" ->
     # rmall
-    { ps_result, _ } = System.cmd("docker", ["ps", "--all", "-q", "-f", "status=exited"])
+    {ps_result, _} = System.cmd("docker", ["ps", "--all", "-q", "-f", "status=exited"])
     [_ | list] = Enum.reverse(String.split(ps_result, "\n"))
+
     if length(list) > 0 do
       System.cmd("docker", ["rm" | list])
     end
+
   [a] when a == "ps" ->
     # ps
-    {ps_result, _} = System.cmd("docker", ["ps", "--format", "'{{.ID}} - {{.Image}} - {{.Status}}'"])
+    {ps_result, _} =
+      System.cmd("docker", ["ps", "--format", "'{{.ID}} - {{.Image}} - {{.Status}}'"])
+
     IO.inspect(ps_result)
-    # default
-  _ -> IO.puts(usage)
+
+  # default
+  _ ->
+    IO.puts(usage)
 end
