@@ -1,94 +1,55 @@
-#!/usr/bin/env bash
+#!/usr/bin/env elixir
 
-action=$1
-param1=$2
-param2=$3
+usage = """
+  usage:
+    dk enter <id>   enter running container
+    dk run <name>   start container by name
+    dk rmi <type>   remove special type images
+    dk rmv <type>   remove special type volumes
+    dk stopall      stop all running containers
+    dk rmall        remove all exited containers
+    dk ps           ps with special format
+"""
 
-remove_exited_containers() {
-  docker rm $(docker ps --all -q -f status=exited)
-}
-
-stop_running_containers() {
-  docker stop $(docker ps --all -q -f status=running)
-}
-
-remove_none_images() {
-  # TODO - check dangling images exists !
-  docker rmi $(docker images -f "dangling=true" -q)
-}
-
-remove_images() {
-  case $param1 in
-    none)
-      remove_none_images
-    ;;
-    *)
-      echo 'unknown image type'
-    ;;
-  esac
-}
-
-remove_dangling_volumes() {
-  docker volume rm $(docker volume ls -qf dangling=true)
-}
-
-remove_volumes() {
-  case $param1 in
-    none)
-      remove_dangling_volumes
-    ;;
-    *)
-      echo 'unknown volume type'
-    ;;
-  esac
-}
-
-enter() {
-  docker exec -it $param1 /bin/bash -c "export TERM=xterm; exec bash"
-}
-
-run() {
-  docker run -d $param1
-}
-
-ps() {
-  docker ps --format '{{.ID}} - {{.Image}} - {{.Status}}' $param1
-}
-
-usage() {
-  echo 'dk - docker'
-  echo '  dk enter <id>   enter running container'
-  echo '  dk run <name>   start container by name'
-  echo '  dk rmi <type>   remove special type images'
-  echo '  dk rmv <type>   remove special type volumes'
-  echo '  dk stopall      stop all running containers'
-  echo '  dk rmall        remove all exited containers'
-  echo '  dk ps           ps with special format'
-}
-
-case $action in
-  enter)
-    enter
-  ;;
-  stopall)
-    stop_running_containers
-  ;;
-  rmall)
-    remove_exited_containers
-  ;;
-  rmv)
-    remove_volumes
-  ;;
-  rmi)
-    remove_images
-  ;;
-  run)
-    run
-  ;;
-  ps)
-    ps
-  ;;
-  *)
-    usage
-  ;;
-esac
+case System.argv do
+  [a1, a2] when a1 == "run" ->
+    # run <name>
+    System.cmd("docker", ["run", "-d", a2])
+  [a1, a2] when a1 == "rmi" and a2 == "none" ->
+    # rmi <type>
+    {ps_result, _} = System.cmd("docker", ["images", "-f", "dangling=true", "-q"])
+    [_ | list] = Enum.reverse(String.split(ps_result, "\n"))
+    if length(list) > 0 do
+      System.cmd("docker", ["rmi" | list])
+    end
+  [a1, a2] when a1 == "rmv" and a2 == "none" ->
+    # rmv <type>
+    {ps_result, _} = System.cmd("docker", ["volume", "ls", "-qf", "dangling=true"])
+    [_ | list] = Enum.reverse(String.split(ps_result, "\n"))
+    if length(list) > 0 do
+      System.cmd("docker", ["volume", "rm" | list])
+    end
+  [a1, a2] when a1 == "enter" ->
+    # enter
+    System.cmd("docker", ["exec", "-it", a2, "/bin/bash", "-c", "'export TERM=xterm; exec bash'"])
+  [a] when a == "stopall" ->
+    # stopall
+    {ps_result, _} = System.cmd("docker", ["ps", "--all", "-q", "-f", "status=running"])
+    [_ | list] = Enum.reverse(String.split(ps_result, "\n"))
+    if length(list) > 0 do
+      System.cmd("docker", ["stop" | list])
+    end
+  [a] when a == "rmall" ->
+    # rmall
+    { ps_result, _ } = System.cmd("docker", ["ps", "--all", "-q", "-f", "status=exited"])
+    [_ | list] = Enum.reverse(String.split(ps_result, "\n"))
+    if length(list) > 0 do
+      System.cmd("docker", ["rm" | list])
+    end
+  [a] when a == "ps" ->
+    # ps
+    {ps_result, _} = System.cmd("docker", ["ps", "--format", "'{{.ID}} - {{.Image}} - {{.Status}}'"])
+    IO.inspect(ps_result)
+    # default
+  _ -> IO.puts(usage)
+end
