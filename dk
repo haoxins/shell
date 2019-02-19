@@ -11,57 +11,80 @@ usage = """
     dk ps           ps with special format
 """
 
+mz_ps = fn ps_result -> Enum.reverse(String.split(ps_result, "\n")) end
+
+cmd_run = fn name ->
+  System.cmd("docker", ["run", "-d", name])
+end
+
+cmd_rmi = fn _ ->
+  {ps_result, _} = System.cmd("docker", ["images", "-f", "dangling=true", "-q"])
+  [_ | list] = mz_ps.(ps_result)
+
+  if length(list) > 0 do
+    System.cmd("docker", ["rmi" | list])
+  end
+end
+
+cmd_rmv = fn _ ->
+  {ps_result, _} = System.cmd("docker", ["volume", "ls", "-qf", "dangling=true"])
+  [_ | list] = mz_ps.(ps_result)
+
+  if length(list) > 0 do
+    System.cmd("docker", ["volume", "rm" | list])
+  end
+end
+
+cmd_enter = fn id ->
+  System.cmd("docker", ["exec", "-it", id, "/bin/bash", "-c", "'export TERM=xterm; exec bash'"])
+end
+
+cmd_stopall = fn ->
+  {ps_result, _} = System.cmd("docker", ["ps", "--all", "-q", "-f", "status=running"])
+  [_ | list] = mz_ps.(ps_result)
+
+  if length(list) > 0 do
+    System.cmd("docker", ["stop" | list])
+  end
+end
+
+cmd_rmall = fn ->
+  {ps_result, _} = System.cmd("docker", ["ps", "--all", "-q", "-f", "status=exited"])
+  [_ | list] = mz_ps.(ps_result)
+
+  if length(list) > 0 do
+    System.cmd("docker", ["rm" | list])
+  end
+end
+
+cmd_ps = fn ->
+  {ps_result, _} =
+    System.cmd("docker", ["ps", "--format", "'{{.ID}} - {{.Image}} - {{.Status}}'"])
+
+  IO.inspect(ps_result)
+end
+
 case System.argv() do
   [a1, a2] when a1 == "run" ->
-    # run <name>
-    System.cmd("docker", ["run", "-d", a2])
+    cmd_run.(a2)
 
   [a1, a2] when a1 == "rmi" and a2 == "none" ->
-    # rmi <type>
-    {ps_result, _} = System.cmd("docker", ["images", "-f", "dangling=true", "-q"])
-    [_ | list] = Enum.reverse(String.split(ps_result, "\n"))
-
-    if length(list) > 0 do
-      System.cmd("docker", ["rmi" | list])
-    end
+    cmd_rmi.(a2)
 
   [a1, a2] when a1 == "rmv" and a2 == "none" ->
-    # rmv <type>
-    {ps_result, _} = System.cmd("docker", ["volume", "ls", "-qf", "dangling=true"])
-    [_ | list] = Enum.reverse(String.split(ps_result, "\n"))
-
-    if length(list) > 0 do
-      System.cmd("docker", ["volume", "rm" | list])
-    end
+    cmd_rmv.(a2)
 
   [a1, a2] when a1 == "enter" ->
-    # enter
-    System.cmd("docker", ["exec", "-it", a2, "/bin/bash", "-c", "'export TERM=xterm; exec bash'"])
+    cmd_enter.(a2)
 
   [a] when a == "stopall" ->
-    # stopall
-    {ps_result, _} = System.cmd("docker", ["ps", "--all", "-q", "-f", "status=running"])
-    [_ | list] = Enum.reverse(String.split(ps_result, "\n"))
-
-    if length(list) > 0 do
-      System.cmd("docker", ["stop" | list])
-    end
+    cmd_stopall.()
 
   [a] when a == "rmall" ->
-    # rmall
-    {ps_result, _} = System.cmd("docker", ["ps", "--all", "-q", "-f", "status=exited"])
-    [_ | list] = Enum.reverse(String.split(ps_result, "\n"))
-
-    if length(list) > 0 do
-      System.cmd("docker", ["rm" | list])
-    end
+    cmd_rmall.()
 
   [a] when a == "ps" ->
-    # ps
-    {ps_result, _} =
-      System.cmd("docker", ["ps", "--format", "'{{.ID}} - {{.Image}} - {{.Status}}'"])
-
-    IO.inspect(ps_result)
+    cmd_ps.()
 
   # default
   _ ->
