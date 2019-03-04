@@ -1,7 +1,0 @@
-#!/usr/bin/env bash
-
-echo tool cmd list
-
-# tips
-
-echo 'du -csh dir (show dir size)'
