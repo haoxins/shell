@@ -1,0 +1,31 @@
+[user]
+  name = haoxin
+  email = haoxinst@gmail.com
+[push]
+  default = simple
+[mergetool]
+  keepBackup = false
+[merge]
+  tool = vimdiff
+[core]
+  editor = /usr/bin/vim
+  ignorecase = false
+[filter "lfs"]
+  clean = git-lfs clean -- %f
+  smudge = git-lfs smudge -- %f
+  process = git-lfs filter-process
+  required = true
+[alias]
+  ps = push
+  br = branch
+  cm = commit
+  co = checkout
+  aa = add --all
+  st = status -sb
+  cp = cherry-pick
+  pl = pull --ff-only
+  mb = branch --merged
+  nb = branch --no-merged
+  lg = log --all --graph --abbrev-commit --date=relative --pretty=format:'%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'
+  authors = !git log --format='%aN' | sort -u
+  contributions = shortlog -e -s -n
