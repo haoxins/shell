@@ -24,8 +24,6 @@
   st = status -sb
   cp = cherry-pick
   pl = pull --ff-only
-  mb = branch --merged
-  nb = branch --no-merged
   lg = log --all --graph --abbrev-commit --date=relative --pretty=format:'%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'
-  authors = !git log --format='%aN' | sort -u
+  authors = ! git log --format='%aN' | sort -u
   contributions = shortlog -e -s -n
