@@ -44,6 +44,10 @@ pmem() {
   echo $memusage
 }
 
+ports() {
+  netstat -an | grep LISTEN
+}
+
 port() {
   netstat -vanp tcp | grep $param1 | grep LISTEN | wc -l
   echo
@@ -79,6 +83,7 @@ usage() {
   echo - my osversion
   echo - my pm      [pid]          show process memory
   echo - my port    [port]
+  echo - my ports                  show listening ports
   echo - my ps      [text]
   echo - my psport  [port]
   echo - my serve   [port]
