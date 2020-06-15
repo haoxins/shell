@@ -14,11 +14,14 @@
     "javascript",
     "javascriptreact"
   ],
-  "[rust]": {
-    "editor.tabSize": 4
-  },
   "workbench.startupEditor": "newUntitledFile",
   "gitlens.advanced.messages": {
     "suppressShowKeyBindingsNotice": true
+  },
+  "[go]":{
+    "editor.formatOnSave": false
+  },
+  "[rust]": {
+    "editor.tabSize": 4
   }
 }
