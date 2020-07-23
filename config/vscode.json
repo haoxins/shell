@@ -23,5 +23,10 @@
   },
   "[rust]": {
     "editor.tabSize": 4
-  }
+  },
+  "go.useLanguageServer": true,
+  "go.toolsEnvVars": {
+    "GO111MODULE": "on"
+  },
+  "editor.codeActionsOnSave": {}
 }
