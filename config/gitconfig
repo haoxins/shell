@@ -1,15 +1,23 @@
 [user]
   name = haoxin
   email = haoxinst@gmail.com
-[push]
-  default = simple
-[mergetool]
-  keepBackup = false
-[merge]
-  tool = vimdiff
 [core]
   editor = /usr/bin/vim
   ignorecase = false
+[pull]
+  ff = only
+[push]
+  default = simple
+[merge]
+  tool = vscode
+[mergetool]
+  keepBackup = false
+[mergetool "vscode"]
+  cmd = "code --wait "
+[diff]
+  tool = vscode
+[difftool "vscode"]
+  cmd = "code --wait --diff  "
 [filter "lfs"]
   clean = git-lfs clean -- %f
   smudge = git-lfs smudge -- %f
