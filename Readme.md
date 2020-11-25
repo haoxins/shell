@@ -13,9 +13,6 @@
 
 ### Tips
 
-```bash
+```sh
 du -csh dir # show dir size
 ```
-
-### License
-MIT
