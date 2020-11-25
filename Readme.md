@@ -1,13 +1,5 @@
 
-### tool
-
-* CLIs for myself
-
-### Some links
-
-* [npm-check-updates](https://github.com/raineorshine/npm-check-updates)
-
-### ENV
+### ENVs
 
 * `GITHUBDIR`
 
