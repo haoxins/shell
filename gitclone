@@ -1,23 +1,15 @@
 #!/usr/bin/env node
 
-'use strict'
-
 const cp = require('child_process')
 const { join } = require('path')
 const fs = require('fs')
 
 const USER_HX = 'haoxins'
-const MODE_GO = 'golang'
 
 let mode = 'normal'
 let user = 'normal'
 
 let params = process.argv.slice(2)
-
-if (params[0] === '-go') {
-  mode = MODE_GO
-  params.shift()
-}
 
 if (params.length !== 1) {
   quit()
@@ -42,16 +34,12 @@ if (dir !== 'airwallex') {
 }
 
 let dest = `git@github.com${extra}:${dir}/${repo}.git`
-console.log('clone: %s', dest)
+console.log('Clone: %s', dest)
 
-const GOPATH = join(process.env.GOPATH, 'src/github.com')
 const GITHUBDIR = process.env.GITHUBDIR
 
-if (mode === MODE_GO) {
-  console.info('go to: %s', GOPATH)
-  process.chdir(GOPATH)
-} else if (GITHUBDIR) {
-  console.info('go to: %s', GITHUBDIR)
+if (GITHUBDIR) {
+  console.info('Go to: %s', GITHUBDIR)
   process.chdir(GITHUBDIR)
 }
 
@@ -97,7 +85,7 @@ function clone() {
 }
 
 function quit() {
-  console.error('invalid params, quit')
-  console.info('usage: gitclone [-go] owner/repo')
+  console.error('Invalid params, quit')
+  console.info('Usage: gitclone owner/repo')
   process.exit(1)
 }
