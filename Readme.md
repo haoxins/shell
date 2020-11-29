@@ -5,6 +5,6 @@
 
 ### Tips
 
-```sh
+```zsh
 du -csh dir # show dir size
 ```
