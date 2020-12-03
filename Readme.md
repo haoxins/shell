@@ -27,3 +27,12 @@ brew cask install adoptopenjdk11
 # .zshrc
 export JAVA_HOME=$(/usr/libexec/java_home -v 11)
 ```
+
+### Go Protobuf
+
+```zsh
+brew install protobuf # or, brew upgrade protobuf
+protoc --version
+go get -u github.com/golang/protobuf/proto
+go get -u github.com/golang/protobuf/protoc-gen-go
+```
