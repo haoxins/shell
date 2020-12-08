@@ -40,7 +40,7 @@ func main() {
 	}
 
 	dest := fmt.Sprintf("git@github.com%s:%s/%s.git", extra, owner, repo)
-	fmt.Printf("Clone to: %s\n", dest)
+	fmt.Printf("Clone from: %s\n", dest)
 
 	githubDir := os.Getenv("GITHUBDIR")
 
