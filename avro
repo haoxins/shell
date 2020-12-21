@@ -1,0 +1,41 @@
+#!/usr/bin/env zsh
+
+action=$1
+param1=$2
+param2=$3
+
+jarfile='/Users/xin.hao/avro-tools-1.10.1.jar'
+
+cat() {
+  java -jar $jarfile cat --offset 0 --limit 3 $param1 -
+}
+
+getschema() {
+  java -jar $jarfile getschema $param1
+}
+
+tojson() {
+  java -jar $jarfile tojson $param1
+}
+
+usage() {
+  echo Usage
+  echo '  - avro cat'
+  echo '  - avro getschema'
+  echo '  - avro tojson'
+}
+
+case $action in
+  cat)
+    cat
+  ;;
+  getschema)
+    getschema
+  ;;
+  tojson)
+    tojson
+  ;;
+  *)
+    usage
+  ;;
+esac
