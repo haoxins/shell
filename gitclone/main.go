@@ -42,10 +42,10 @@ func main() {
 	dest := fmt.Sprintf("git@github.com%s:%s/%s.git", extra, owner, repo)
 	fmt.Printf("Clone from: %s\n", dest)
 
-	githubDir := os.Getenv("GITHUBDIR")
+	githubDir := os.Getenv("GITHUB_DIR")
 
 	if githubDir == "" {
-		log.Fatalln("Pls set env: GITHUBDIR")
+		log.Fatalln("Pls set env: GITHUB_DIR")
 	}
 
 	fmt.Printf("Go to: %s\n", githubDir)

@@ -1,7 +1,7 @@
 
 ### ENVs
 
-* `GITHUBDIR`
+* `GITHUB_DIR`
 
 ### Tips
 
