@@ -77,19 +77,19 @@ untar() {
 
 usage() {
   echo Usage
-  echo '  - my disk'
-  echo '  - my dirsize [dir]'
-  echo '  - my find    [text] [dir]'
-  echo '  - my file    [text] [dir]'
-  echo '  - my osversion'
-  echo '  - my pm      [pid]          show process memory'
-  echo '  - my port    [port]'
-  echo '  - my ports                  show listening ports'
-  echo '  - my ps      [text]'
-  echo '  - my psport  [port]'
-  echo '  - my serve   [port]'
-  echo '  - my tar     [pkg]  [dir]'
-  echo '  - my untar   [pkg]'
+  echo '  - i disk'
+  echo '  - i dirsize [dir]'
+  echo '  - i find    [text] [dir]'
+  echo '  - i file    [text] [dir]'
+  echo '  - i osversion'
+  echo '  - i pm      [pid]          show process memory'
+  echo '  - i port    [port]'
+  echo '  - i ports                  show listening ports'
+  echo '  - i ps      [text]'
+  echo '  - i psport  [port]'
+  echo '  - i serve   [port]'
+  echo '  - i tar     [pkg]  [dir]'
+  echo '  - i untar   [pkg]'
 }
 
 case $action in
