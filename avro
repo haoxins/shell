@@ -20,9 +20,9 @@ tojson() {
 
 usage() {
   echo Usage
-  echo '  - avro cat'
-  echo '  - avro getschema'
-  echo '  - avro tojson'
+  echo '  - cat'
+  echo '  - getschema'
+  echo '  - tojson'
 }
 
 case $action in

@@ -18,8 +18,18 @@ stop() {
 
 usage() {
   echo Usage
-  echo '  - flink start'
-  echo '  - flink stop'
+  echo '  - start'
+  echo '  - stop'
+  echo '  - run'
+  echo '  - run_batch'
+}
+
+run() {
+  echo TODO
+}
+
+run_batch() {
+  echo TODO
 }
 
 case $action in
@@ -28,6 +38,12 @@ case $action in
   ;;
   stop)
     stop
+  ;;
+  run)
+    run
+  ;;
+  run_batch)
+    run_batch
   ;;
   *)
     usage
