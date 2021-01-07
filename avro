@@ -18,16 +18,24 @@ tojson() {
   java -jar $jarfile tojson $param1
 }
 
+compile() {
+  java -jar $jarfile compile schema $param1 $param2
+}
+
 usage() {
   echo Usage
   echo '  - cat'
   echo '  - getschema'
   echo '  - tojson'
+  echo '  - compile'
 }
 
 case $action in
   cat)
     cat
+  ;;
+  compile)
+    compile
   ;;
   getschema)
     getschema
