@@ -28,6 +28,7 @@
   br = branch
   cm = commit
   co = checkout
+  rb = rebase -i
   aa = add --all
   st = status -sb
   cp = cherry-pick
