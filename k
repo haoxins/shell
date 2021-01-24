@@ -12,6 +12,10 @@ logs() {
   kubectl logs --namespace $param1 $param2
 }
 
+exec() {
+  kubectl exec --stdin --tty --namespace $param1 $param2 -- /bin/bash
+}
+
 desc() {
   kubectl describe pods $param2 --namespace $param1
 }
@@ -20,6 +24,7 @@ usage() {
   echo Usage
   echo '  - pods namespace'
   echo '  - logs namespace pod'
+  echo '  - exec namespace pod'
   echo '  - desc namespace pod'
 }
 
@@ -29,6 +34,9 @@ case $action in
   ;;
   logs)
     logs
+  ;;
+  exec)
+    exec
   ;;
   desc)
     desc
