@@ -31,8 +31,9 @@
   rb = rebase -i
   aa = add --all
   st = status -sb
-  cp = cherry-pick
   pop = stash pop
+  cp = cherry-pick
+  up = fetch upstream
   lg = log --all --graph --abbrev-commit --date=relative --pretty=format:'%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'
   authors = ! git log --format='%aN' | sort -u
   contributions = shortlog -e -s -n
