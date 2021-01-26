@@ -1,0 +1,23 @@
+#!/usr/bin/env zsh
+
+action=$1
+param1=$2
+param2=$3
+
+rmv() {
+  docker volume rm -f $(docker volume ls -q)
+}
+
+usage() {
+  echo Usage
+  echo '  - rmv'
+}
+
+case $action in
+  rmv)
+    rmv
+  ;;
+  *)
+    usage
+  ;;
+esac
