@@ -4,6 +4,22 @@ action=$1
 param1=$2
 param2=$3
 
+ctx() {
+  kubectl config get-contexts
+}
+
+use_ctx() {
+  kubectl config use-context $param1
+}
+
+ns() {
+  kubectl get namespace
+}
+
+use_ns() {
+  kubectl config set-context --current --namespace $param1
+}
+
 pods() {
   kubectl get pods -o wide --namespace $param1
 }
