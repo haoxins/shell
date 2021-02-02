@@ -21,30 +21,46 @@ use_ns() {
 }
 
 pods() {
-  kubectl get pods -o wide --namespace $param1
+  kubectl get pods -o wide
 }
 
 logs() {
-  kubectl logs --namespace $param1 $param2
+  kubectl logs $param1
 }
 
 exec() {
-  kubectl exec --stdin --tty --namespace $param1 $param2 -- /bin/bash
+  kubectl exec --stdin --tty $param1 -- /bin/bash
 }
 
 desc() {
-  kubectl describe pods $param2 --namespace $param1
+  kubectl describe pods $param1
 }
 
 usage() {
   echo Usage
-  echo '  - pods namespace'
-  echo '  - logs namespace pod'
-  echo '  - exec namespace pod'
-  echo '  - desc namespace pod'
+  echo '  - ctx'
+  echo '  - use_ctx context'
+  echo '  - ns'
+  echo '  - use_ns namespace'
+  echo '  - pods'
+  echo '  - logs pod'
+  echo '  - exec pod'
+  echo '  - desc pod'
 }
 
 case $action in
+  ctx)
+    ctx
+  ;;
+  use_ctx)
+    use_ctx
+  ;;
+  ns)
+    ns
+  ;;
+  use_ns)
+    use_ns
+  ;;
   pods)
     pods
   ;;
