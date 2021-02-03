@@ -16,8 +16,15 @@ stop() {
   ./bin/stop-cluster.sh
 }
 
+restart() {
+  cd $FLINK_DIR
+  ./bin/stop-cluster.sh
+  ./bin/start-cluster.sh
+}
+
 usage() {
   echo Usage
+  echo '  - restart'
   echo '  - start'
   echo '  - stop'
   echo '  - run'
@@ -33,6 +40,9 @@ run_batch() {
 }
 
 case $action in
+  restart)
+    restart
+  ;;
   start)
     start
   ;;
