@@ -2,10 +2,10 @@
 jobmanager.rpc.address: localhost
 jobmanager.rpc.port: 6123
 
-jobmanager.memory.process.size: 1600m
-taskmanager.memory.process.size: 1728m
+jobmanager.memory.process.size: 3800m
+taskmanager.memory.process.size: 4000m
 
-taskmanager.numberOfTaskSlots: 32
+taskmanager.numberOfTaskSlots: 6
 
 parallelism.default: 1
 
