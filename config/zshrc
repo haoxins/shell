@@ -1,0 +1,25 @@
+export ZSH="/Users/xin.hao/.oh-my-zsh"
+
+ZSH_THEME="robbyrussell"
+
+plugins=(
+  git
+)
+
+source $ZSH/oh-my-zsh.sh
+
+export PATH=$PATH:/Users/xin.hao/github/haoxins/tool
+export PATH=$PATH:/Users/xin.hao/go/bin
+export PATH=$PATH:/Users/xin.hao/Library/Python/3.8/bin
+
+export JAVA_HOME=$(/usr/libexec/java_home -v 11)
+
+alias pyfmt="yapf --in-place --style='{based_on_style: pep8, indent_width: 2}'"
+
+export GITHUB_DIR=/Users/xin.hao/github
+export FLINK_DIR=/Users/xin.hao/flink-1.12.0
+export SPRING_PROFILES_ACTIVE=local
+
+# Google Cloud SDK
+if [ -f '/Users/xin.hao/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/xin.hao/google-cloud-sdk/path.zsh.inc'; fi
+if [ -f '/Users/xin.hao/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/xin.hao/google-cloud-sdk/completion.zsh.inc'; fi
