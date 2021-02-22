@@ -32,7 +32,7 @@ send_topic() {
   cd $KAFKA_DIR
   ./bin/kafka-console-producer.sh \
     --topic $param1 \
-    --bootstrap-server localhost:9092
+    --broker-list localhost:9092
 }
 
 read_topic() {
