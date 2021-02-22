@@ -1,0 +1,86 @@
+#!/usr/bin/env zsh
+
+action=$1
+param1=$2
+param2=$3
+
+start_zk() {
+  cd $KAFKA_DIR
+  ./bin/zookeeper-server-start.sh config/zookeeper.properties
+}
+
+start_kafka() {
+  cd $KAFKA_DIR
+  ./bin/kafka-server-start.sh config/server.properties
+}
+
+create_topic() {
+  cd $KAFKA_DIR
+  ./bin/kafka-topics.sh \
+    --create --topic $param1 \
+    --bootstrap-server localhost:9092
+}
+
+show_topic() {
+  cd $KAFKA_DIR
+  ./bin/kafka-topics.sh \
+    --describe --topic $param1 \
+    --bootstrap-server localhost:9092
+}
+
+send_topic() {
+  cd $KAFKA_DIR
+  ./bin/kafka-console-producer.sh \
+    --topic $param1 \
+    --bootstrap-server localhost:9092
+}
+
+read_topic() {
+  cd $KAFKA_DIR
+  ./bin/kafka-console-consumer.sh \
+    --topic quickstart-events \
+    --from-beginning \
+    --bootstrap-server localhost:9092
+}
+
+clean() {
+  rm -rf /tmp/kafka-logs /tmp/zookeeper
+}
+
+usage() {
+  echo Usage
+  echo '  - start_zk'
+  echo '  - start_kafka'
+  echo '  - create_topic'
+  echo '  - show_topic'
+  echo '  - send_topic'
+  echo '  - read_topic'
+  echo '  - clean'
+}
+
+case $action in
+  start_zk)
+    start_zk
+  ;;
+  start_kafka)
+    start_kafka
+  ;;
+  create_topic)
+    create_topic
+  ;;
+  show_topic)
+    show_topic
+  ;;
+  send_topic)
+    send_topic
+  ;;
+  read_topic)
+    read_topic
+  ;;
+  clean)
+    clean
+  ;;
+  *)
+    usage
+  ;;
+esac
