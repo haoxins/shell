@@ -9,7 +9,7 @@ start_zk() {
   ./bin/zookeeper-server-start.sh config/zookeeper.properties
 }
 
-start_kafka() {
+start() {
   cd $KAFKA_DIR
   ./bin/kafka-server-start.sh config/server.properties
 }
@@ -50,7 +50,7 @@ clean() {
 usage() {
   echo Usage
   echo '  - start_zk'
-  echo '  - start_kafka'
+  echo '  - start'
   echo '  - create_topic'
   echo '  - show_topic'
   echo '  - send_topic'
@@ -62,8 +62,8 @@ case $action in
   start_zk)
     start_zk
   ;;
-  start_kafka)
-    start_kafka
+  start)
+    start
   ;;
   create_topic)
     create_topic
