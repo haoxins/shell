@@ -1,14 +1,16 @@
+parallelism.default: 3
 
 jobmanager.rpc.address: localhost
 jobmanager.rpc.port: 6123
 
 jobmanager.memory.process.size: 3800m
-taskmanager.memory.process.size: 4000m
-
-taskmanager.numberOfTaskSlots: 6
-
-parallelism.default: 1
-
 jobmanager.execution.failover-strategy: region
 
+taskmanager.memory.process.size: 4000m
+taskmanager.numberOfTaskSlots: 6
+
 web.upload.dir: /Users/xin.hao/Downloads/flink-jars
+
+state.backend: rocksdb
+state.backend.incremental: true
+state.checkpoints.dir: /Users/xin.hao/Downloads/flink-checkpoints
