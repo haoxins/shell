@@ -6,8 +6,6 @@ state.backend: rocksdb
 state.backend.incremental: true
 state.checkpoints.dir: file:///Users/xin.hao/Downloads/flink-checkpoints
 
-parallelism.default: 3
-
 jobmanager.rpc.address: localhost
 jobmanager.rpc.port: 6123
 
@@ -16,3 +14,4 @@ jobmanager.execution.failover-strategy: region
 
 taskmanager.memory.process.size: 4000m
 taskmanager.numberOfTaskSlots: 6
+parallelism.default: 2
