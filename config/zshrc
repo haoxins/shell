@@ -14,11 +14,14 @@ export PATH=$PATH:/Users/xin.hao/Library/Python/3.8/bin
 
 export JAVA_HOME=$(/usr/libexec/java_home -v 11)
 
-alias pyfmt="yapf --in-place --style='{based_on_style: pep8, indent_width: 2}'"
-
 export GITHUB_DIR=/Users/xin.hao/github
 export FLINK_DIR=/Users/xin.hao/flink-1.12.0
+export KAFKA_DIR=/Users/xin.hao/kafka_2.12-2.4.1
+
 export SPRING_PROFILES_ACTIVE=local
+
+alias pyfmt="yapf --in-place --style='{based_on_style: pep8, indent_width: 2}'"
+alias f="~/flink-1.12.0/bin/flink"
 
 # Google Cloud SDK
 if [ -f '/Users/xin.hao/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/xin.hao/google-cloud-sdk/path.zsh.inc'; fi
