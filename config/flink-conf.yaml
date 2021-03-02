@@ -5,6 +5,7 @@ web.upload.dir: /Users/xin.hao/Downloads/flink-jars
 state.backend: rocksdb
 state.backend.incremental: true
 state.checkpoints.dir: file:///Users/xin.hao/Downloads/flink-checkpoints
+state.backend.rocksdb.memory.managed: false
 
 jobmanager.rpc.address: localhost
 jobmanager.rpc.port: 6123
