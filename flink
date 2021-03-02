@@ -4,20 +4,22 @@ action=$1
 param1=$2
 param2=$3
 
+FLINK_DIR=/Users/xin.hao/flink-1.12.0/bin
+
 start() {
   cd $FLINK_DIR
-  ./bin/start-cluster.sh
+  ./start-cluster.sh
 }
 
 stop() {
   cd $FLINK_DIR
-  ./bin/stop-cluster.sh
+  ./stop-cluster.sh
 }
 
 restart() {
   cd $FLINK_DIR
-  ./bin/stop-cluster.sh
-  ./bin/start-cluster.sh
+  ./stop-cluster.sh
+  ./start-cluster.sh
 }
 
 usage() {

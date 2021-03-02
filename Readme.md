@@ -2,13 +2,6 @@
 ### ENVs
 
 * `GITHUB_DIR`
-* `FLINK_DIR`
-
-### Tips
-
-```zsh
-du -csh dir # show dir size
-```
 
 ### zshrc
 

@@ -4,40 +4,42 @@ action=$1
 param1=$2
 param2=$3
 
+KAFKA_DIR=/Users/xin.hao/kafka_2.12-2.4.1/bin
+
 start_zk() {
   cd $KAFKA_DIR
-  ./bin/zookeeper-server-start.sh config/zookeeper.properties
+  ./zookeeper-server-start.sh config/zookeeper.properties
 }
 
 start() {
   cd $KAFKA_DIR
-  ./bin/kafka-server-start.sh config/server.properties
+  ./kafka-server-start.sh config/server.properties
 }
 
 create_topic() {
   cd $KAFKA_DIR
-  ./bin/kafka-topics.sh \
+  ./kafka-topics.sh \
     --create --topic $param1 \
     --bootstrap-server localhost:9092
 }
 
 show_topic() {
   cd $KAFKA_DIR
-  ./bin/kafka-topics.sh \
+  ./kafka-topics.sh \
     --describe --topic $param1 \
     --bootstrap-server localhost:9092
 }
 
 send_topic() {
   cd $KAFKA_DIR
-  ./bin/kafka-console-producer.sh \
+  ./kafka-console-producer.sh \
     --topic $param1 \
     --broker-list localhost:9092
 }
 
 read_topic() {
   cd $KAFKA_DIR
-  ./bin/kafka-console-consumer.sh \
+  ./kafka-console-consumer.sh \
     --topic quickstart-events \
     --from-beginning \
     --bootstrap-server localhost:9092
