@@ -20,3 +20,7 @@ brew install adoptopenjdk11 --cask
 # .zshrc
 export JAVA_HOME=$(/usr/libexec/java_home -v 11)
 ```
+
+### Online tools
+
+* [Excalidraw](https://excalidraw.com)
