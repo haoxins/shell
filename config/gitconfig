@@ -26,14 +26,16 @@
 [alias]
   ps = push
   br = branch
+  rb = rebase
   cm = commit
   co = checkout
-  rb = rebase -i
+  up = fetch up
   aa = add --all
   st = status -sb
-  pop = stash pop
   cp = cherry-pick
-  up = fetch upstream
+  pop = stash pop
+  drop = stash drop
+  list = stash list
   lg = log --all --graph --abbrev-commit --date=relative --pretty=format:'%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'
   authors = ! git log --format='%aN' | sort -u
   contributions = shortlog -e -s -n

@@ -18,7 +18,8 @@ export SPRING_PROFILES_ACTIVE=local
 
 alias pyfmt="yapf --in-place --style='{based_on_style: pep8, indent_width: 2}'"
 alias f="~/flink-1.12.0/bin/flink"
-alias mvns="mvn -DskipTests "
+alias gradles="gradle -x test"
+alias mvns="mvn -DskipTests"
 
 # Google Cloud SDK
 if [ -f '/Users/xin.hao/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/xin.hao/google-cloud-sdk/path.zsh.inc'; fi
