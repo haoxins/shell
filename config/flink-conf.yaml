@@ -2,9 +2,10 @@ env.log.dir: /Users/xin.hao/Downloads/flink-logs
 
 web.upload.dir: /Users/xin.hao/Downloads/flink-jars
 
-state.backend: rocksdb
+state.backend: filesystem
 state.backend.incremental: true
 state.checkpoints.dir: file:///Users/xin.hao/Downloads/flink-checkpoints
+state.savepoints.dir: file:///Users/xin.hao/Downloads/flink-savepoints
 state.backend.rocksdb.memory.managed: false
 
 jobmanager.rpc.address: localhost
