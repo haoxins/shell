@@ -5,6 +5,7 @@ param1=$2
 param2=$3
 
 FLINK_DIR=/Users/xin.hao/flink-1.12.0/bin
+FLINK_FS_DIR=/Users/xin.hao/Downloads
 
 start() {
   cd $FLINK_DIR
@@ -22,21 +23,18 @@ restart() {
   ./start-cluster.sh
 }
 
+clean() {
+  rm $FLINK_FS_DIR/flink-logs/*
+  rm -rf $FLINK_FS_DIR/flink-savepoints/*
+  rm -rf $FLINK_FS_DIR/flink-checkpoints/*
+}
+
 usage() {
   echo Usage
   echo '  - restart'
   echo '  - start'
   echo '  - stop'
-  echo '  - run'
-  echo '  - run_batch'
-}
-
-run() {
-  echo TODO
-}
-
-run_batch() {
-  echo TODO
+  echo '  - clean'
 }
 
 case $action in
@@ -49,11 +47,8 @@ case $action in
   stop)
     stop
   ;;
-  run)
-    run
-  ;;
-  run_batch)
-    run_batch
+  clean)
+    clean
   ;;
   *)
     usage
