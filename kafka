@@ -4,7 +4,7 @@ action=$1
 param1=$2
 param2=$3
 
-KAFKA_DIR=/Users/xin.hao/kafka_2.12-2.4.1/bin
+KAFKA_DIR=/Users/xin.hao/kafka_2.12-2.6.1/bin
 
 start_zk() {
   cd $KAFKA_DIR
