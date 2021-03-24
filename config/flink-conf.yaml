@@ -17,3 +17,5 @@ jobmanager.execution.failover-strategy: region
 taskmanager.memory.process.size: 4000m
 taskmanager.numberOfTaskSlots: 6
 parallelism.default: 2
+
+restart-strategy: none
