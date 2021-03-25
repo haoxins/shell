@@ -28,11 +28,17 @@ clean() {
   rm -r $FLINK_FS_DIR/flink-checkpoints/*
 }
 
+save() {
+  cd $FLINK_DIR
+  ./flink savepoint $param1
+}
+
 usage() {
   echo Usage
   echo '  - restart'
   echo '  - start'
   echo '  - stop'
+  echo '  - save job_id'
   echo '  - clean'
 }
 
@@ -45,6 +51,9 @@ case $action in
   ;;
   stop)
     stop
+  ;;
+  save)
+    save
   ;;
   clean)
     clean
