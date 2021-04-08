@@ -18,7 +18,6 @@ export SPRING_PROFILES_ACTIVE=local
 
 alias pyfmt="yapf --in-place --style='{based_on_style: pep8, indent_width: 2}'"
 alias gradles="gradle clean formatKtlint build -x test"
-alias mvns="mvn clean install package -U -DskipTests"
 
 alias f="~/flink-1.12.0/bin/flink"
 
