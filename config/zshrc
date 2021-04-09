@@ -17,7 +17,7 @@ export GITHUB_DIR=/Users/xin.hao/github
 export SPRING_PROFILES_ACTIVE=local
 
 alias pyfmt="yapf --in-place --style='{based_on_style: pep8, indent_width: 2}'"
-alias gradles="gradle clean ktlintFormat build -x test"
+alias g6="gradle clean ktlintFormat build -x test"
 
 alias f="~/flink-1.12.0/bin/flink"
 alias up="docker-compose up"
