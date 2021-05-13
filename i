@@ -4,6 +4,10 @@ action=$1
 param1=$2
 param2=$3
 
+fmt() {
+  echo $param1 | tr '[:upper:]' '[:lower:]' | tr ' ' '-' | tr '_' '-'
+}
+
 dirsize() {
   du -sh $param1
 }
@@ -77,6 +81,7 @@ untar() {
 
 usage() {
   echo Usage
+  echo '  - fmt     [str]'
   echo '  - disk'
   echo '  - dirsize [dir]'
   echo '  - find    [text] [dir]'
@@ -93,6 +98,9 @@ usage() {
 }
 
 case $action in
+  fmt)
+    fmt
+  ;;
   dirsize)
     dirsize
   ;;
