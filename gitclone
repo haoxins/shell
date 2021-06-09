@@ -1,75 +1,57 @@
 #!/usr/bin/env python3
 
-# const defaultUser = "haoxins"
+import sys
+import os
+from os import path
+from subprocess import run, PIPE
 
-# func main() {
-# 	if len(os.Args) != 2 {
-# 		log.Fatalln("Invalid params")
-# 	}
+defaultUser = 'haoxins'
 
-# 	param := os.Args[1]
+if len(sys.argv) != 2:
+  sys.exit('Invalid params')
 
-# 	if !strings.Contains(param, "/") {
-# 		log.Fatalln("Invalid repo")
-# 	}
+param = sys.argv[1]
 
-# 	params := strings.Split(param, "/")
-# 	if len(params) != 2 {
-# 		log.Fatalln("Invalid params")
-# 	}
+if not '/' in param:
+  sys.exit('Invalid repo')
 
-# 	owner := params[0]
-# 	repo := params[1]
+[owner, repo] = param.split('/')
 
-# 	user := ""
+user = ''
+extra = ''
 
-# 	extra := ""
-# 	if owner != "airwallex" {
-# 		user = defaultUser
-# 		extra = "-" + defaultUser
-# 	}
+if owner != 'airwallex':
+  user = defaultUser
+  extra = "-" + defaultUser
 
-# 	dest := fmt.Sprintf("git@github.com%s:%s/%s.git", extra, owner, repo)
-# 	fmt.Printf("Clone from: %s\n", dest)
+dest = f'git@github.com{extra}:{owner}/{repo}.git'
+print(f'Clone from: {dest}')
 
-# 	githubDir := os.Getenv("GITHUB_DIR")
+githubDir = os.getenv('GITHUB_DIR')
 
-# 	if githubDir == "" {
-# 		log.Fatalln("Pls set env: GITHUB_DIR")
-# 	}
+if githubDir == "":
+  sys.exit('Please set env: GITHUB_DIR')
 
-# 	fmt.Printf("Go to: %s\n", githubDir)
-# 	err := os.Chdir(githubDir)
-# 	tools.FatalError(err)
+print(f'Go to dir: {githubDir}')
+os.chdir(githubDir)
 
-# 	githubDir = path.Join(githubDir, owner)
-# 	exists := tools.Exists(githubDir)
-# 	if !exists {
-# 		err := os.Mkdir(owner, os.ModePerm)
-# 		tools.FatalError(err)
-# 	}
+githubDir = path.join(githubDir, owner)
+if not path.isdir(githubDir):
+  os.mkdir(owner)
 
-# 	err = os.Chdir(githubDir)
-# 	tools.FatalError(err)
+os.chdir(githubDir)
 
-# 	exists = tools.Exists(path.Join(githubDir, repo))
-# 	if exists {
-# 		log.Fatalf("The %s/%s exists", owner, repo)
-# 	}
+if path.isdir(path.join(githubDir, repo)):
+  sys.exit(f'The {owner}/{repo} exists')
 
-# 	result, err := tools.ExecCommand("git", "clone", dest)
-# 	tools.FatalError(err)
-# 	fmt.Println(result)
+result = run(['git', 'clone', dest], stdout=PIPE)
+print(result.stdout)
 
-# 	if user == defaultUser {
-# 		err := os.Chdir(path.Join(githubDir, repo))
-# 		tools.FatalError(err)
+if user == defaultUser:
+  os.chdir(path.join(githubDir, repo))
 
-# 		_, _ = tools.ExecCommand("git", "config", "user.email", "\"haoxinst@gmail.com\"")
-# 		_, _ = tools.ExecCommand("git", "config", "user.name", "\"haoxin\"")
+run(['git', 'config', 'user.email', '"haoxinst@gmail.com"'])
+run(['git', 'config', 'user.name', '"haoxin"'])
 
-# 		result, err := tools.ExecCommand("git", "config", "--list", "--local")
-# 		tools.FatalError(err)
-# 		fmt.Println(result)
-# 	}
-# }
+result = run('git', 'config', '--list', '--local', stdout=PIPE)
+print(result.stdout)
