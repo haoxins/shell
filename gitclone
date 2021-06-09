@@ -3,7 +3,7 @@
 import sys
 import os
 from os import path
-from subprocess import run, PIPE
+from subprocess import run
 
 defaultUser = 'haoxins'
 
@@ -44,8 +44,7 @@ os.chdir(githubDir)
 if path.isdir(path.join(githubDir, repo)):
   sys.exit(f'The {owner}/{repo} exists')
 
-result = run(['git', 'clone', dest], stdout=PIPE)
-print(result.stdout)
+result = run(['git', 'clone', dest])
 
 if user == defaultUser:
   os.chdir(path.join(githubDir, repo))
@@ -54,5 +53,4 @@ if user == defaultUser:
   run(['git', 'config', 'user.name', '"haoxin"'])
 
   print('The whole config')
-  result = run('git', 'config', '--list', '--local', stdout=PIPE)
-  print(result.stdout)
+  run(['git', 'config', '--list', '--local'])
