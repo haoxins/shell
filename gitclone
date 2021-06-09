@@ -50,8 +50,9 @@ print(result.stdout)
 if user == defaultUser:
   os.chdir(path.join(githubDir, repo))
 
-run(['git', 'config', 'user.email', '"haoxinst@gmail.com"'])
-run(['git', 'config', 'user.name', '"haoxin"'])
+  run(['git', 'config', 'user.email', '"haoxinst@gmail.com"'])
+  run(['git', 'config', 'user.name', '"haoxin"'])
 
-result = run('git', 'config', '--list', '--local', stdout=PIPE)
-print(result.stdout)
+  print('The whole config')
+  result = run('git', 'config', '--list', '--local', stdout=PIPE)
+  print(result.stdout)
