@@ -3,7 +3,7 @@
 import sys
 import os
 from os import path
-from subprocess import run
+from subprocess import PIPE, run
 
 defaultUser = 'haoxins'
 
@@ -53,4 +53,6 @@ if user == defaultUser:
   run(['git', 'config', 'user.email', '"haoxinst@gmail.com"'])
   run(['git', 'config', 'user.name', '"haoxin"'])
 
-  # run(['git', 'config', '--list', '--local'])
+  print('The whole git config')
+  result = run(['git', 'config', '--list', '--local'], stdout=PIPE)
+  print(result.stdout.decode())
