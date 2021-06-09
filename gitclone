@@ -13,7 +13,7 @@ if len(sys.argv) != 2:
 param = sys.argv[1]
 
 if not '/' in param:
-  sys.exit('Invalid repo')
+  sys.exit('Invalid repo path, should be owner/repo')
 
 [owner, repo] = param.split('/')
 
@@ -22,7 +22,7 @@ extra = ''
 
 if owner != 'airwallex':
   user = defaultUser
-  extra = "-" + defaultUser
+  extra = '-' + defaultUser
 
 dest = f'git@github.com{extra}:{owner}/{repo}.git'
 print(f'Clone from: {dest}')
@@ -37,8 +37,9 @@ os.chdir(githubDir)
 
 githubDir = path.join(githubDir, owner)
 if not path.isdir(githubDir):
-  os.mkdir(owner)
+  os.mkdir(githubDir)
 
+print(f'Go to dir: {githubDir}')
 os.chdir(githubDir)
 
 if path.isdir(path.join(githubDir, repo)):
