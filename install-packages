@@ -10,3 +10,5 @@ cargo install procs
 cargo install xh
 # find
 cargo install fd-find
+# grep
+cargo install ripgrep
