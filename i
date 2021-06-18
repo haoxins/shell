@@ -8,14 +8,6 @@ fmt() {
   echo $param1 | tr '[:upper:]' '[:lower:]' | tr ' ' '-' | tr '_' '-'
 }
 
-dirsize() {
-  du -sh $param1
-}
-
-disk() {
-  df -h
-}
-
 find_content() {
   # $param1: text, $param2: dir, -I: ignore bin
   grep -R -I $param1 $param2
@@ -82,8 +74,6 @@ untar() {
 usage() {
   echo Usage
   echo '  - fmt     [str]'
-  echo '  - disk'
-  echo '  - dirsize [dir]'
   echo '  - find    [text] [dir]'
   echo '  - file    [text] [dir]'
   echo '  - osversion'
@@ -100,12 +90,6 @@ usage() {
 case $action in
   fmt)
     fmt
-  ;;
-  dirsize)
-    dirsize
-  ;;
-  disk)
-    disk
   ;;
   find)
     find_content
