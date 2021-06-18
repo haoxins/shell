@@ -1,3 +1,5 @@
+# ps
+cargo install procs
 # http
 cargo install xh
 # find

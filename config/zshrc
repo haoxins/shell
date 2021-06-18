@@ -20,6 +20,7 @@ export SPRING_PROFILES_ACTIVE=local
 alias pyfmt="yapf --in-place --style='{based_on_style: yapf}'"
 alias find=fd
 alias http=xh
+alias ps=procs
 alias g7="gradle clean ktlintFormat build -x test"
 
 alias flink="~/flink-1.12.0/bin/flink"
