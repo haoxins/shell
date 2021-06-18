@@ -1,2 +1,4 @@
+# http
+cargo install xh
 # find
 cargo install fd-find
