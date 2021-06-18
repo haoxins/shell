@@ -17,12 +17,14 @@ export JAVA_HOME=$(/usr/libexec/java_home -v 11)
 export GITHUB_DIR=/Users/xin.hao/github
 export SPRING_PROFILES_ACTIVE=local
 
-alias pyfmt="yapf --in-place --style='{based_on_style: yapf}'"
+# Modern CLIs
 alias ls=exa
 alias cat=bat
 alias find=fd
 alias http=xh
 alias ps=procs
+
+alias pyfmt="yapf -i -r --style='{based_on_style: yapf}'"
 alias g7="gradle clean ktlintFormat build -x test"
 
 alias flink="~/flink-1.12.0/bin/flink"
