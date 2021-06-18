@@ -8,11 +8,6 @@ fmt() {
   echo $param1 | tr '[:upper:]' '[:lower:]' | tr ' ' '-' | tr '_' '-'
 }
 
-find_content() {
-  # $param1: text, $param2: dir, -I: ignore bin
-  grep -R -I $param1 $param2
-}
-
 os_version() {
   local name=`uname -s`
   local isDarwin=`echo $name | grep -i darwin`
@@ -24,10 +19,6 @@ os_version() {
   elif [ ! -z $isLinux ]; then
     cat /etc/os-release
   fi
-}
-
-find_file() {
-  grep -R -l $param1 $param2
 }
 
 my_ip() {
@@ -74,8 +65,6 @@ untar() {
 usage() {
   echo Usage
   echo '  - fmt     [str]'
-  echo '  - find    [text] [dir]'
-  echo '  - file    [text] [dir]'
   echo '  - osversion'
   echo '  - pm      [pid]          show process memory'
   echo '  - port    [port]'
@@ -90,12 +79,6 @@ usage() {
 case $action in
   fmt)
     fmt
-  ;;
-  find)
-    find_content
-  ;;
-  file)
-    find_file
   ;;
   ip)
     my_ip
