@@ -12,3 +12,5 @@ cargo install xh
 cargo install fd-find
 # grep
 cargo install ripgrep
+# du
+cargo install du-dust

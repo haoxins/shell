@@ -23,6 +23,7 @@ alias cat=bat
 alias find=fd
 alias http=xh
 alias grep=rg
+alias du=dust
 alias ps=procs
 
 alias pyfmt="yapf -i -r --style='{based_on_style: yapf}'"
