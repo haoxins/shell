@@ -3,14 +3,6 @@
 
 * `GITHUB_DIR`
 
-### zshrc
-
-```zsh
-export JAVA_HOME=$(/usr/libexec/java_home -v 11)
-
-alias pyfmt="yapf --in-place --style='{based_on_style: pep8, indent_width: 2}'"
-```
-
 ### JDK
 
 ```zsh
@@ -25,4 +17,3 @@ export JAVA_HOME=$(/usr/libexec/java_home -v 11)
 
 * [Excalidraw](https://excalidraw.com)
   - [GitHub](https://github.com/excalidraw/excalidraw)
-* [AsyncAPI](https://www.asyncapi.com)
