@@ -1,0 +1,4 @@
+#!/usr/bin/env zsh
+
+netstat -vanp tcp | grep $1 | grep LISTEN | wc -l
+netstat -vanp tcp | grep $1 | grep LISTEN
