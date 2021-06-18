@@ -1,3 +1,5 @@
+# cat
+cargo install bat
 # ps
 cargo install procs
 # http
