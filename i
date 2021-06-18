@@ -22,13 +22,6 @@ serve() {
   python3 -m http.server $param1
 }
 
-usage() {
-  echo Usage
-  echo '  - fmt     [str]'
-  echo '  - port    [port]'
-  echo '  - serve   [port]'
-}
-
 case $action in
   fmt)
     fmt
@@ -43,6 +36,6 @@ case $action in
     serve
   ;;
   *)
-    usage
+    echo 'fmt, ip, port, serve'
   ;;
 esac
