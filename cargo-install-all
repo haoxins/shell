@@ -1,0 +1,27 @@
+#!/usr/bin/env zsh
+
+#
+# Modern UNIX
+#
+
+# ls
+cargo install exa --locked
+# cat
+cargo install bat --locked
+# ps
+cargo install procs --locked
+# http
+cargo install xh --locked
+# find
+cargo install fd-find --locked
+# grep
+cargo install ripgrep --locked
+# du
+cargo install du-dust --locked
+
+#
+# Others
+#
+
+# Deno
+cargo install deno --locked
