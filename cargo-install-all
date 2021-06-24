@@ -23,5 +23,8 @@ cargo install du-dust --locked
 # Others
 #
 
+# Nushell
+cargo install nu --locked
+
 # Deno
 cargo install deno --locked
