@@ -4,6 +4,10 @@ action=$1
 param1=$2
 param2=$3
 
+info() {
+  kubectl cluster-info
+}
+
 ctx() {
   kubectl config get-contexts
 }
@@ -38,6 +42,7 @@ desc() {
 
 usage() {
   echo Usage
+  echo '  - info'
   echo '  - ctx'
   echo '  - use_ctx context'
   echo '  - ns'
@@ -49,6 +54,9 @@ usage() {
 }
 
 case $action in
+  info)
+    info
+  ;;
   ctx)
     ctx
   ;;
