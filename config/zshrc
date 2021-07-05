@@ -8,7 +8,7 @@ plugins=(
 
 source $ZSH/oh-my-zsh.sh
 
-export PATH=$PATH:/Users/xin.hao/github/haoxins/tool
+export PATH=$PATH:/Users/xin.hao/github/haoxins/shell
 export PATH=$PATH:/Users/xin.hao/Library/Python/3.9/bin
 export PATH=$PATH:/Users/xin.hao/go/bin
 
