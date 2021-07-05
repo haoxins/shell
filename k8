@@ -36,6 +36,10 @@ exec() {
   kubectl exec --stdin --tty $param1 -- /bin/bash
 }
 
+pf() {
+  kubectl port-forward $param1 $param2
+}
+
 desc() {
   kubectl describe pods $param1
 }
@@ -50,6 +54,7 @@ usage() {
   echo '  - pods'
   echo '  - logs pod'
   echo '  - exec pod'
+  echo '  - pf pod local_port:pod_port'
   echo '  - desc pod'
 }
 
@@ -77,6 +82,9 @@ case $action in
   ;;
   exec)
     exec
+  ;;
+  pf)
+    pf
   ;;
   desc)
     desc
