@@ -9,6 +9,7 @@ plugins=(
 source $ZSH/oh-my-zsh.sh
 
 export PATH=$PATH:/Users/xin.hao/github/haoxins/tool
+export PATH=$PATH:/Users/xin.hao/Library/Python/3.9/bin
 export PATH=$PATH:/Users/xin.hao/go/bin
 
 export JAVA_HOME=$(/usr/libexec/java_home -v 11)
@@ -24,7 +25,8 @@ alias grep=rg
 alias du=dust
 alias ps=procs
 
-alias pyfmt="yapf -i -r --style='{based_on_style: yapf}'"
+alias pyf="yapf -i -r --style='{based_on_style: yapf}'"
+alias py="python3.9"
 alias g7="gradle clean ktlintFormat build -x test"
 
 alias flink="~/flink-1.12.0/bin/flink"
