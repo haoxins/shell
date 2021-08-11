@@ -3,6 +3,10 @@
 
 * `GITHUB_DIR`
 
+```zsh
+"'Courier New'"
+```
+
 ### JDK
 
 ```zsh
