@@ -12,10 +12,6 @@ ctx() {
   kubectl config get-contexts
 }
 
-rm_ctx() {
-  kubectl config delete-context $param1
-}
-
 use_ctx() {
   kubectl config use-context $param1
 }
@@ -52,23 +48,14 @@ cluster() {
   kubectl config get-clusters
 }
 
-rm_cluster() {
-  kubectl config delete-cluster $param1
-}
-
 user() {
   kubectl config get-users
-}
-
-rm_user() {
-  kubectl config delete-user $param1
 }
 
 usage() {
   echo Usage
   echo '  - info'
   echo '  - ctx'
-  echo '  - rm_ctx context'
   echo '  - use_ctx context'
   echo '  - ns'
   echo '  - use_ns namespace'
@@ -78,9 +65,7 @@ usage() {
   echo '  - port pod local_port:pod_port'
   echo '  - desc pod'
   echo '  - cluster'
-  echo '  - rm_cluster'
   echo '  - user'
-  echo '  - rm_user'
 }
 
 case $action in
@@ -92,9 +77,6 @@ case $action in
   ;;
   use_ctx)
     use_ctx
-  ;;
-  rm_ctx)
-    rm_ctx
   ;;
   ns)
     ns
@@ -120,14 +102,8 @@ case $action in
   cluster)
     cluster
   ;;
-  rm_cluster)
-    rm_cluster
-  ;;
   user)
     user
-  ;;
-  rm_user)
-    rm_user
   ;;
   *)
     usage
