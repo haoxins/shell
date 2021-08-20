@@ -25,7 +25,7 @@ alias grep=rg
 alias du=dust
 alias ps=procs
 
-alias pyf="yapf -i -r --style='{based_on_style: yapf}'"
+alias pyf="black"
 alias py="python3.9"
 alias g7="gradle clean ktlintFormat build -x test"
 
