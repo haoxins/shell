@@ -5,54 +5,54 @@ import os
 from os import path
 from subprocess import PIPE, run
 
-defaultUser = 'haoxins'
+defaultUser = "haoxins"
 
 if len(sys.argv) != 2:
-  sys.exit('Invalid params')
+    sys.exit("Invalid params")
 
 param = sys.argv[1]
 
-if not '/' in param:
-  sys.exit('Invalid repo path, should be owner/repo')
+if not "/" in param:
+    sys.exit("Invalid repo path, should be owner/repo")
 
-[owner, repo] = param.split('/')
+[owner, repo] = param.split("/")
 
-user = ''
-extra = ''
+user = ""
+extra = ""
 
-if owner != 'airwallex':
-  user = defaultUser
-  extra = '-' + defaultUser
+if owner != "airwallex":
+    user = defaultUser
+    extra = "-" + defaultUser
 
-dest = f'git@github.com{extra}:{owner}/{repo}.git'
-print(f'Clone from: {dest}')
+dest = f"git@github.com{extra}:{owner}/{repo}.git"
+print(f"Clone from: {dest}")
 
-githubDir = os.getenv('GITHUB_DIR')
+githubDir = os.getenv("GITHUB_DIR")
 
 if githubDir == "":
-  sys.exit('Please set env: GITHUB_DIR')
+    sys.exit("Please set env: GITHUB_DIR")
 
-print(f'Go to dir: {githubDir}')
+print(f"Go to dir: {githubDir}")
 os.chdir(githubDir)
 
 githubDir = path.join(githubDir, owner)
 if not path.isdir(githubDir):
-  os.mkdir(githubDir)
+    os.mkdir(githubDir)
 
-print(f'Go to dir: {githubDir}')
+print(f"Go to dir: {githubDir}")
 os.chdir(githubDir)
 
 if path.isdir(path.join(githubDir, repo)):
-  sys.exit(f'The {owner}/{repo} exists')
+    sys.exit(f"The {owner}/{repo} exists")
 
-run(['git', 'clone', dest])
+run(["git", "clone", dest])
 
 if user == defaultUser:
-  os.chdir(path.join(githubDir, repo))
+    os.chdir(path.join(githubDir, repo))
 
-  run(['git', 'config', 'user.email', '"haoxinst@gmail.com"'])
-  run(['git', 'config', 'user.name', '"Hao Xin"'])
+    run(["git", "config", "user.email", '"haoxinst@gmail.com"'])
+    run(["git", "config", "user.name", '"Hao Xin"'])
 
-  print('The whole git config')
-  result = run(['git', 'config', '--list', '--local'], stdout=PIPE)
-  print(result.stdout.decode())
+    print("The whole git config")
+    result = run(["git", "config", "--list", "--local"], stdout=PIPE)
+    print(result.stdout.decode())
