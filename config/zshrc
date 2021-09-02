@@ -8,12 +8,13 @@ plugins=(
 
 source $ZSH/oh-my-zsh.sh
 
-export PATH=$PATH:/Users/xin.hao/github/haoxins/shell
-export PATH=$PATH:/Users/xin.hao/Library/Python/3.9/bin
-export PATH=$PATH:/Users/xin.hao/go/bin
+export PATH=$PATH:$HOME/github/haoxins/shell
+export PATH=$PATH:$HOME/Library/Python/3.9/bin
+export PATH=$PATH:$HOME/.istioctl/bin
+export PATH=$PATH:$HOME/go/bin
 
 export JAVA_HOME=$(/usr/libexec/java_home -v 11)
-export GITHUB_DIR=/Users/xin.hao/github
+export GITHUB_DIR=$HOME/github
 export SPRING_PROFILES_ACTIVE=local
 
 # Modern CLIs
@@ -31,7 +32,3 @@ alias g7="gradle clean ktlintFormat build -x test"
 
 alias flink="~/flink-1.12.0/bin/flink"
 alias up="docker-compose up"
-
-# Google Cloud SDK
-if [ -f '/Users/xin.hao/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/xin.hao/google-cloud-sdk/path.zsh.inc'; fi
-if [ -f '/Users/xin.hao/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/xin.hao/google-cloud-sdk/completion.zsh.inc'; fi
