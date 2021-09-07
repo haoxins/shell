@@ -29,7 +29,7 @@ svc() {
 }
 
 po() {
-  kubectl get po -o wide
+  kubectl get po
 }
 
 logs() {
