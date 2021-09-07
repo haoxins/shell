@@ -24,6 +24,10 @@ use_ns() {
   kubectl config set-context --current --namespace $param1
 }
 
+svc() {
+  kubectl get svc
+}
+
 pods() {
   kubectl get pods -o wide
 }
@@ -59,6 +63,7 @@ usage() {
   echo '  - use_ctx context'
   echo '  - ns'
   echo '  - use_ns namespace'
+  echo '  - svc'
   echo '  - pods'
   echo '  - logs pod'
   echo '  - exec pod'
@@ -83,6 +88,9 @@ case $action in
   ;;
   use_ns)
     use_ns
+  ;;
+  svc)
+    svc
   ;;
   pods)
     pods
