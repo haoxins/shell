@@ -28,8 +28,8 @@ svc() {
   kubectl get svc
 }
 
-pods() {
-  kubectl get pods -o wide
+po() {
+  kubectl get po -o wide
 }
 
 logs() {
@@ -45,7 +45,7 @@ port() {
 }
 
 desc() {
-  kubectl describe pods $param1
+  kubectl describe po $param1
 }
 
 cluster() {
@@ -64,7 +64,7 @@ usage() {
   echo '  - ns'
   echo '  - use_ns namespace'
   echo '  - svc'
-  echo '  - pods'
+  echo '  - po'
   echo '  - logs pod'
   echo '  - exec pod'
   echo '  - port pod local_port:pod_port'
@@ -92,8 +92,8 @@ case $action in
   svc)
     svc
   ;;
-  pods)
-    pods
+  po)
+    po
   ;;
   logs)
     logs
