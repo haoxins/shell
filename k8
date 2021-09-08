@@ -40,6 +40,10 @@ pv() {
   kubectl get pv
 }
 
+warn() {
+  kubectl get ev --field-selector type=Warning
+}
+
 logs() {
   kubectl logs $param1
 }
@@ -75,6 +79,7 @@ usage() {
   echo '  - ev'
   echo '  - po'
   echo '  - pv'
+  echo '  - warn'
   echo '  - logs pod'
   echo '  - exec pod'
   echo '  - port pod local_port:pod_port'
@@ -110,6 +115,9 @@ case $action in
   ;;
   pv)
     pv
+  ;;
+  warn)
+    warn
   ;;
   logs)
     logs
