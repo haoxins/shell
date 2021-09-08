@@ -1,3 +1,0 @@
-#!/usr/bin/env zsh
-
-echo $1 | tr '[:upper:]' '[:lower:]' | tr ' ' '-' | tr '_' '-'
