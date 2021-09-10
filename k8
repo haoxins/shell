@@ -2,10 +2,17 @@
 
 action=$1
 param1=$2
-param2=$3
 
 info() {
   kubectl cluster-info
+}
+
+cluster() {
+  kubectl config get-clusters
+}
+
+user() {
+  kubectl config get-users
 }
 
 ctx() {
@@ -28,16 +35,16 @@ svc() {
   kubectl get svc
 }
 
-ev() {
-  kubectl get ev
-}
-
 po() {
   kubectl get po
 }
 
 pv() {
   kubectl get pv
+}
+
+ev() {
+  kubectl get ev
 }
 
 warn() {
@@ -48,49 +55,47 @@ logs() {
   kubectl logs $param1
 }
 
-exec() {
-  kubectl exec --stdin --tty $param1 -- /bin/bash
-}
-
-port() {
-  kubectl port-forward $param1 $param2
+follow() {
+  kubectl logs $param1 -f
 }
 
 desc() {
   kubectl describe po $param1
 }
 
-cluster() {
-  kubectl config get-clusters
-}
-
-user() {
-  kubectl config get-users
+exec() {
+  kubectl exec --stdin --tty $param1 -- /bin/bash
 }
 
 usage() {
   echo Usage
   echo '  - info'
-  echo '  - ctx'
-  echo '  - use_ctx context'
-  echo '  - ns'
-  echo '  - use_ns namespace'
-  echo '  - svc'
-  echo '  - ev'
-  echo '  - po'
-  echo '  - pv'
-  echo '  - warn'
-  echo '  - logs pod'
-  echo '  - exec pod'
-  echo '  - port pod local_port:pod_port'
-  echo '  - desc pod'
   echo '  - cluster'
   echo '  - user'
+  echo '  - ctx'
+  echo '  - use_ctx $context'
+  echo '  - ns'
+  echo '  - use_ns $namespace'
+  echo '  - svc'
+  echo '  - po'
+  echo '  - pv'
+  echo '  - ev'
+  echo '  - warn'
+  echo '  - logs $pod'
+  echo '  - follow $pod'
+  echo '  - desc $pod'
+  echo '  - exec $pod'
 }
 
 case $action in
   info)
     info
+  ;;
+  cluster)
+    cluster
+  ;;
+  user)
+    user
   ;;
   ctx)
     ctx
@@ -107,14 +112,14 @@ case $action in
   svc)
     svc
   ;;
-  ev)
-    ev
-  ;;
   po)
     po
   ;;
   pv)
     pv
+  ;;
+  ev)
+    ev
   ;;
   warn)
     warn
@@ -122,20 +127,14 @@ case $action in
   logs)
     logs
   ;;
-  exec)
-    exec
-  ;;
-  port)
-    port
+  follow)
+    follow
   ;;
   desc)
     desc
   ;;
-  cluster)
-    cluster
-  ;;
-  user)
-    user
+  exec)
+    exec
   ;;
   *)
     usage
