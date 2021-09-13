@@ -1,3 +1,0 @@
-#!/usr/bin/env zsh
-
-echo .DS_Store > .gitignore

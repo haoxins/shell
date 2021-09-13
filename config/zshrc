@@ -32,6 +32,7 @@ alias pyf=black
 alias py=python3.9
 
 alias serve="python3 -m http.server "
+alias gitignore="echo .DS_Store > .gitignore"
 alias ip="ifconfig | grep inet | grep netmask | grep broadcast | cut -d: -f2"
 
 alias up="docker-compose up"
