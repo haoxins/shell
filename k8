@@ -1,20 +1,3 @@
-#!/usr/bin/env zsh
-
-action=$1
-param1=$2
-
-info() {
-  kubectl cluster-info
-}
-
-cluster() {
-  kubectl config get-clusters
-}
-
-user() {
-  kubectl config get-users
-}
-
 ctx() {
   kubectl config get-contexts
 }
@@ -29,38 +12,6 @@ ns() {
 
 use_ns() {
   kubectl config set-context --current --namespace $param1
-}
-
-svc() {
-  kubectl get svc
-}
-
-po() {
-  kubectl get po
-}
-
-pv() {
-  kubectl get pv
-}
-
-ev() {
-  kubectl get ev
-}
-
-warn() {
-  kubectl get ev --field-selector type=Warning
-}
-
-logs() {
-  kubectl logs $param1
-}
-
-follow() {
-  kubectl logs $param1 -f
-}
-
-desc() {
-  kubectl describe po $param1
 }
 
 exec() {
