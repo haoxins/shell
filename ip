@@ -1,8 +1,0 @@
-#!/usr/bin/env zsh
-
-ifconfig |\
-  grep inet |\
-  grep netmask |\
-  grep broadcast |\
-  cut -d: -f2 |\
-  awk '{ print $2}'

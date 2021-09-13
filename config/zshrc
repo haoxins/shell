@@ -17,8 +17,6 @@ export JAVA_HOME=$(/usr/libexec/java_home -v 11)
 export GITHUB_DIR=$HOME/github
 export SPRING_PROFILES_ACTIVE=local
 
-alias c=clear
-
 # Modern CLIs
 alias ls=exa
 alias cat=bat
@@ -28,9 +26,11 @@ alias grep=rg
 alias du=dust
 alias ps=procs
 
+alias c=clear
 alias k=kubectl
 alias pyf=black
 alias py=python3.9
 
+alias ip="ifconfig | grep inet | grep netmask | grep broadcast | cut -d: -f2"
 alias up="docker-compose up"
 alias g7="gradle clean ktlintFormat build -x test"
