@@ -32,7 +32,9 @@ alias pyf=black
 alias py=python3.9
 
 # K8s
+alias kctx="k config get-contexts | awk '{print \$1 \"\\n\" \$2 \"\\n\"}'"
 alias kuse="k config set-context --current --namespace"
+alias kenvoy="k exec --stdin --tty -c istio-proxy"
 alias kexec="k exec --stdin --tty"
 
 alias serve="python3 -m http.server"
