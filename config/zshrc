@@ -8,10 +8,10 @@ plugins=(
 
 source $ZSH/oh-my-zsh.sh
 
+export PATH=$PATH:$HOME/go/bin
+export PATH=$PATH:$HOME/.istioctl/bin
 export PATH=$PATH:$HOME/github/haoxins/shell
 export PATH=$PATH:$HOME/Library/Python/3.9/bin
-export PATH=$PATH:$HOME/.istioctl/bin
-export PATH=$PATH:$HOME/go/bin
 
 export JAVA_HOME=$(/usr/libexec/java_home -v 11)
 export GITHUB_DIR=$HOME/github
@@ -31,7 +31,11 @@ alias k=kubectl
 alias pyf=black
 alias py=python3.9
 
-alias serve="python3 -m http.server "
+# K8s
+alias kuse="k config set-context --current --namespace"
+alias kexec="k exec --stdin --tty"
+
+alias serve="python3 -m http.server"
 alias gitignore="echo .DS_Store > .gitignore"
 alias ip="ifconfig | grep inet | grep netmask | grep broadcast | cut -d: -f2"
 
