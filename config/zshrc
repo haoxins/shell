@@ -43,3 +43,7 @@ alias ip="ifconfig | grep inet | grep netmask | grep broadcast | cut -d: -f2"
 
 alias up="docker-compose up"
 alias g7="gradle clean ktlintFormat build -x test"
+
+# gRPC debug
+export GRPC_TRACE=all
+export GRPC_VERBOSITY=DEBUG
