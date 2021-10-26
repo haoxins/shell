@@ -32,7 +32,8 @@ alias pyf=black
 alias py=python3.9
 
 # K8s
-alias kctx="k config get-contexts | awk '{print \$1 \"\\n\" \$2 \"\\n\"}'"
+alias kns=kubens
+alias kctx=kubectx
 alias kuse="k config set-context --current --namespace"
 alias kenvoy="k exec --stdin --tty -c istio-proxy"
 alias kexec="k exec --stdin --tty"
@@ -45,5 +46,4 @@ alias up="docker-compose up"
 alias g7="gradle clean ktlintFormat build -x test"
 
 # gRPC debug
-export GRPC_TRACE=all
-export GRPC_VERBOSITY=DEBUG
+alias grpcdebug="export GRPC_TRACE=all GRPC_VERBOSITY=DEBUG"
