@@ -11,7 +11,6 @@ source $ZSH/oh-my-zsh.sh
 export PATH=$PATH:$HOME/go/bin
 export PATH=$PATH:$HOME/.istioctl/bin
 export PATH=$PATH:$HOME/github/haoxins/shell
-export PATH=$PATH:$HOME/Library/Python/3.9/bin
 
 export JAVA_HOME=$(/usr/libexec/java_home -v 11)
 export GITHUB_DIR=$HOME/github
@@ -29,7 +28,7 @@ alias ps=procs
 alias c=clear
 alias k=kubectl
 alias pyf=black
-alias py=python3.9
+alias py=python3
 
 # K8s
 alias kns=kubens
