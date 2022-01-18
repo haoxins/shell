@@ -33,9 +33,8 @@ alias py=python3
 # K8s
 alias kns=kubens
 alias kctx=kubectx
-alias kuse="k config set-context --current --namespace"
-alias kenvoy="k exec --stdin --tty -c istio-proxy"
 alias kexec="k exec --stdin --tty"
+alias kenvoy="k exec --stdin --tty -c istio-proxy"
 
 alias serve="python3 -m http.server"
 alias gitignore="echo .DS_Store > .gitignore"
