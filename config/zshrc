@@ -27,8 +27,8 @@ alias ps=procs
 
 alias c=clear
 alias k=kubectl
+alias op=operator-sdk
 alias pyf=black
-alias py=python3
 
 # K8s
 alias kns=kubens
