@@ -6,8 +6,6 @@
 
 # ls
 cargo install exa --locked
-# cat
-cargo install bat --locked
 # ps
 cargo install procs --locked
 # http
