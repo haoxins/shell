@@ -1,0 +1,52 @@
+name: Build Images
+
+on:
+  push:
+    branches:
+    - main
+    tags:
+    - "v*"
+  pull_request:
+    branches:
+    - main
+
+jobs:
+  build-images:
+    name: Build Images
+    runs-on: ubuntu-latest
+    steps:
+    - name: Check out the repo
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+
+    - name: Set up Docker buildx
+      uses: docker/setup-buildx-action@v1
+
+    - name: Log in to the Container registry
+      uses: docker/login-action@v1
+      with:
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Extract metadata for ubuntu
+      id: ubuntu-image-meta
+      uses: docker/metadata-action@v3
+      with:
+        images: |
+          ghcr.io/haoxins/ubuntu
+        tags: |
+          type=raw,value=main,enable=${{ github.ref == 'refs/heads/main' }}
+          type=sha,prefix=,format=short
+          type=semver,pattern={{version}}
+          type=semver,pattern={{major}}.{{minor}}
+
+    - name: Build and push ubuntu
+      uses: docker/bake-action@v1
+      with:
+        files: |
+          .github/workflows/bake-ubuntu.hcl
+          ${{ steps.ubuntu-image-meta.outputs.bake-file }}
+        targets: bake-platform
+        push: ${{ github.event_name != 'pull_request' }}
