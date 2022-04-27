@@ -14,7 +14,6 @@ RUN export DEBIAN_FRONTEND=noninteractive \
   && apt-get -yq install \
     bash \
     curl \
-    gcc \
     sudo \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
