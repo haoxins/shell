@@ -1,7 +1,7 @@
 
 ### ENVs
 
-* `GITHUB_DIR`
+- `GITHUB_DIR`
 
 ```zsh
 "'Courier New'"
@@ -19,5 +19,5 @@ export JAVA_HOME=$(/usr/libexec/java_home -v 11)
 
 ### Online tools
 
-* [Excalidraw](https://excalidraw.com)
+- [Excalidraw](https://excalidraw.com)
   - [GitHub](https://github.com/excalidraw/excalidraw)
