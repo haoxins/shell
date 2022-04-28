@@ -14,7 +14,7 @@ brew tap homebrew/homebrew-core
 brew tap AdoptOpenJDK/openjdk
 brew install adoptopenjdk11 --cask
 # .zshrc
-export JAVA_HOME=$(/usr/libexec/java_home -v 11)
+export JAVA_HOME=$(/usr/libexec/java_home -v 17)
 ```
 
 ### Online tools

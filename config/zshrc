@@ -12,7 +12,7 @@ export PATH=$PATH:$HOME/go/bin
 export PATH=$PATH:$HOME/.istioctl/bin
 export PATH=$PATH:$HOME/github/haoxins/shell
 
-export JAVA_HOME=$(/usr/libexec/java_home -v 11)
+export JAVA_HOME=$(/usr/libexec/java_home -v 17)
 export GITHUB_DIR=$HOME/github
 export SPRING_PROFILES_ACTIVE=local
 
@@ -37,6 +37,7 @@ alias kenvoy="k exec --stdin --tty -c istio-proxy"
 alias kk="k apply --dry-run=client -o yaml -k"
 alias hh="helm install debug --dry-run --debug"
 
+alias python=python3
 alias serve="python3 -m http.server"
 alias gitignore="echo .DS_Store > .gitignore"
 alias ip="ifconfig | grep inet | grep netmask | grep broadcast | cut -d: -f2"
