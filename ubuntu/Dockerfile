@@ -14,6 +14,9 @@ RUN export DEBIAN_FRONTEND=noninteractive \
   && apt-get -yq install \
     bash \
     curl \
+    golang \
+    make \
+    python3 \
     sudo \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
