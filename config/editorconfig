@@ -8,14 +8,8 @@ trim_trailing_whitespace = true
 insert_final_newline = true
 end_of_line = lf
 
+[*.{rs,py}]
+indent_size = 4
+
 [*.go]
 indent_style = tab
-
-[*.py]
-indent_size = 4
-
-[*.rs]
-indent_size = 4
-
-[*.kt]
-disabled_rules=no-wildcard-imports
