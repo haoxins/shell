@@ -1,15 +1,9 @@
 #!/usr/bin/env zsh
 
-#
-# Modern UNIX
-#
-
 # ls
 cargo install exa --locked
 # ps
 cargo install procs --locked
-# http
-cargo install xh --locked
 # find
 cargo install fd-find --locked
 # grep
@@ -20,6 +14,8 @@ cargo install du-dust --locked
 #
 # Others
 #
+
+cargo install mdcat --locked
 
 # Nushell
 cargo install nu --locked

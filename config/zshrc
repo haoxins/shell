@@ -19,7 +19,6 @@ export SPRING_PROFILES_ACTIVE=local
 # Modern CLIs
 alias ls=exa
 alias find=fd
-alias http=xh
 alias grep=rg
 alias du=dust
 alias ps=procs
