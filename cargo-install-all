@@ -15,7 +15,5 @@ cargo install du-dust --locked
 # Others
 #
 
-cargo install mdcat --locked
-
 # Nushell
 cargo install nu --locked
