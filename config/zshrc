@@ -31,7 +31,6 @@ alias pyfmt="poetry run isort . && poetry run black ."
 alias kns=kubens
 alias kctx=kubectx
 alias kexec="k exec --stdin --tty"
-alias kk="k apply --dry-run=client -o yaml -k"
 alias rrd="rollout restart deployment"
 
 alias python=python3
