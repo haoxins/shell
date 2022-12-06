@@ -31,9 +31,8 @@ alias pyfmt="poetry run isort . && poetry run black ."
 alias kns=kubens
 alias kctx=kubectx
 alias kexec="k exec --stdin --tty"
-alias kenvoy="k exec --stdin --tty -c istio-proxy"
 alias kk="k apply --dry-run=client -o yaml -k"
-alias hh="helm install debug --dry-run --debug"
+alias rrd="rollout restart deployment"
 
 alias python=python3
 alias serve="python3 -m http.server"
