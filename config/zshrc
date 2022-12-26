@@ -39,7 +39,7 @@ alias serve="python3 -m http.server"
 alias gitignore="echo .DS_Store > .gitignore"
 alias ip="ifconfig | grep inet | grep netmask | grep broadcast | cut -d: -f2"
 
-alias up="docker-compose up"
-
 # gRPC debug
 alias grpcdebug="export GRPC_TRACE=all GRPC_VERBOSITY=DEBUG"
+
+export PATH="$HOME/Library/Python/3.10/bin:$PATH"
