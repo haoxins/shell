@@ -3,9 +3,8 @@
       "metrics": false,
       "diagnostics": false
   },
+  "buffer_font_family": "PragmataPro Liga",
   "buffer_font_size": 18,
-  "enable_language_server": true,
-  "show_completions_on_input": true,
   "ensure_final_newline_on_save": true,
   "remove_trailing_whitespace_on_save": true
 }
