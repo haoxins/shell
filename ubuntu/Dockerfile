@@ -1,10 +1,10 @@
-FROM ubuntu:22.04
+FROM ubuntu:23.04
 
 ENV SHELL /bin/bash
 
 ARG KUBECTL_ARCH=amd64
-ARG KUBECTL_VERSION=v1.23.5
-ARG KIND_VERSION=v0.12.0
+ARG KUBECTL_VERSION=v1.27.1
+ARG KIND_VERSION=v0.18.0
 
 SHELL ["/bin/bash", "-c"]
 
@@ -20,6 +20,10 @@ RUN export DEBIAN_FRONTEND=noninteractive \
     sudo \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
+
+# Using Rust nightly
+RUN rustup install nightly \
+  && rustup default nightly
 
 # Install - kind
 RUN curl -Lo ./kind https://kind.sigs.k8s.io/dl/${KIND_VERSION}/kind-linux-amd64 \
