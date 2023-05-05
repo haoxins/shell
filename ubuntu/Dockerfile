@@ -1,4 +1,4 @@
-FROM ubuntu:23.04
+FROM ubuntu
 
 ENV SHELL /bin/bash
 
@@ -22,7 +22,8 @@ RUN export DEBIAN_FRONTEND=noninteractive \
   && rm -rf /var/lib/apt/lists/*
 
 # Using Rust nightly
-RUN rustup install nightly \
+RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh \
+  && rustup install nightly \
   && rustup default nightly
 
 # Install - kind
