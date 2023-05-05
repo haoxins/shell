@@ -23,10 +23,12 @@ RUN export DEBIAN_FRONTEND=noninteractive \
 
 # Using Rust nightly
 RUN curl -sSf https://sh.rustup.rs | sh -s -- -y \
-  && ~/.cargo/bin/rustup install nightly \
-  && ~/.cargo/bin/rustup default nightly
+  && export PATH="$HOME/.cargo/bin:$PATH" \
+  && rustup install nightly \
+  && rustup default nightly
 
 RUN ructc --version
+RUN rustup --version
 
 # Install - kind
 RUN curl -Lo ./kind https://kind.sigs.k8s.io/dl/${KIND_VERSION}/kind-linux-amd64 \
