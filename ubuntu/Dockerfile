@@ -22,9 +22,10 @@ RUN export DEBIAN_FRONTEND=noninteractive \
   && rm -rf /var/lib/apt/lists/*
 
 # Using Rust nightly
-RUN curl -sSf https://sh.rustup.rs | sh -s -- -y \
-  && export PATH="$HOME/.cargo/bin:$PATH" \
-  && rustup install nightly \
+RUN curl -sSf https://sh.rustup.rs | sh -s -- -y
+ENV PATH="$HOME/.cargo/bin:$PATH"
+
+RUN rustup install nightly \
   && rustup default nightly
 
 RUN ructc --version
