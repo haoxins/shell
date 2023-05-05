@@ -22,7 +22,7 @@ RUN export DEBIAN_FRONTEND=noninteractive \
   && rm -rf /var/lib/apt/lists/*
 
 # Using Rust nightly
-RUN curl -sSf https://sh.rustup.rs | sh
+RUN curl -sSf https://sh.rustup.rs | sh -s -- -y
 # \
 #   && rustup install nightly \
 #   && rustup default nightly
