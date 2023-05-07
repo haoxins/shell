@@ -31,10 +31,7 @@ alias pyfmt="poetry run isort . && poetry run black ."
 alias kns=kubens
 alias kctx=kubectx
 alias kexec="k exec --stdin --tty"
-alias krrd="k rollout restart deployment"
-alias krrs="k rollout restart statefulset"
 
-alias python=python3
 alias serve="python3 -m http.server"
 alias gitignore="echo .DS_Store > .gitignore"
 alias ip="ifconfig | grep inet | grep netmask | grep broadcast | cut -d: -f2"
