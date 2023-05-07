@@ -25,7 +25,6 @@ alias ps=procs
 
 alias c=clear
 alias k=kubectl
-alias pyfmt="poetry run isort . && poetry run black ."
 
 # K8s
 alias kns=kubens
