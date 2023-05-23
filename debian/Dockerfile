@@ -1,4 +1,4 @@
-FROM ubuntu
+FROM debian
 
 ENV SHELL /bin/bash
 
