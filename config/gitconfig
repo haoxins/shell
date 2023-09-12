@@ -1,9 +1,8 @@
 [user]
-  name = Hao Xin
-  email = haoxinst@gmail.com
+  name = Xin Hao
+  email = haoxins@icloud.com
 [core]
   editor = /usr/bin/vim
-  ignorecase = false
 [pull]
   ff = only
 [push]

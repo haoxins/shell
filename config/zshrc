@@ -9,7 +9,6 @@ plugins=(
 source $ZSH/oh-my-zsh.sh
 
 export PATH=$PATH:$HOME/go/bin
-export PATH=$PATH:$HOME/.deno/bin
 export PATH=$PATH:$HOME/github/haoxins/shell
 
 export JAVA_HOME=$(/usr/libexec/java_home -v 17)
@@ -27,9 +26,12 @@ alias c=clear
 alias k=kubectl
 
 # K8s
+alias pod=podman
 alias kns=kubens
 alias kctx=kubectx
 alias kexec="k exec --stdin --tty"
+alias kport="k port-forward"
 
 alias gitignore="echo .DS_Store > .gitignore"
+alias today="python3 -c 'from datetime import date; print(date.today())'"
 alias ip="ifconfig | grep inet | grep netmask | grep broadcast | cut -d: -f2"

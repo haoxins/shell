@@ -5,54 +5,46 @@ import os
 from os import path
 from subprocess import PIPE, run
 
-defaultUser = "haoxins"
-
 if len(sys.argv) != 2:
     sys.exit("Invalid params")
 
 param = sys.argv[1]
 
 if "/" not in param:
-    sys.exit("Invalid repo path, should be owner/repo")
+    sys.exit("Invalid repo path, should be `owner/repo`")
 
 [owner, repo] = param.split("/")
 
-user = ""
-extra = ""
+user = "haoxins"
 
-if owner != "airwallex":
-    user = defaultUser
-    extra = "-" + defaultUser
-
-dest = f"git@github.com{extra}:{owner}/{repo}.git"
+dest = f"git@github.com:{owner}/{repo}.git"
 print(f"Clone from: {dest}")
 
-githubDir = os.getenv("GITHUB_DIR")
+github_dir = os.getenv("GITHUB_DIR")
 
-if githubDir == "":
+if github_dir == "":
     sys.exit("Please set env: GITHUB_DIR")
 
-print(f"Go to dir: {githubDir}")
-os.chdir(githubDir)
+print(f"Go to dir: {github_dir}")
+os.chdir(github_dir)
 
-githubDir = path.join(githubDir, owner)
-if not path.isdir(githubDir):
-    os.mkdir(githubDir)
+github_dir = path.join(github_dir, owner)
+if not path.isdir(github_dir):
+    os.mkdir(github_dir)
 
-print(f"Go to dir: {githubDir}")
-os.chdir(githubDir)
+print(f"Go to dir: {github_dir}")
+os.chdir(github_dir)
 
-if path.isdir(path.join(githubDir, repo)):
+if path.isdir(path.join(github_dir, repo)):
     sys.exit(f"The {owner}/{repo} exists")
 
 run(["git", "clone", dest])
 
-if user == defaultUser:
-    os.chdir(path.join(githubDir, repo))
+os.chdir(path.join(github_dir, repo))
 
-    run(["git", "config", "user.email", "haoxins@icloud.com"])
-    run(["git", "config", "user.name", "Xin Hao"])
+run(["git", "config", "user.email", "haoxins@icloud.com"])
+run(["git", "config", "user.name", "Xin Hao"])
 
-    print("The whole git config")
-    result = run(["git", "config", "--list", "--local"], stdout=PIPE)
-    print(result.stdout.decode())
+print("The whole git config")
+result = run(["git", "config", "--list", "--local"], stdout=PIPE)
+print(result.stdout.decode())
