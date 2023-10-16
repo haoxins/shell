@@ -30,23 +30,23 @@ jobs:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
 
-    - name: Extract metadata for debian
-      id: debian-image-meta
+    - name: Extract metadata for ubuntu
+      id: ubuntu-image-meta
       uses: docker/metadata-action@v3
       with:
         images: |
-          ghcr.io/haoxins/debian
+          ghcr.io/haoxins/ubuntu
         tags: |
           type=raw,value=main,enable=${{ github.ref == 'refs/heads/main' }}
           type=sha,prefix=,format=short
           type=semver,pattern={{version}}
           type=semver,pattern={{major}}.{{minor}}
 
-    - name: Build and push debian
+    - name: Build and push ubuntu
       uses: docker/bake-action@v1
       with:
         files: |
-          .github/workflows/bake-debian.hcl
-          ${{ steps.debian-image-meta.outputs.bake-file }}
+          .github/workflows/bake-ubuntu.hcl
+          ${{ steps.ubuntu-image-meta.outputs.bake-file }}
         targets: bake-platform
         push: ${{ github.event_name != 'pull_request' }}

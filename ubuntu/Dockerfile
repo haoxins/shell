@@ -1,10 +1,9 @@
-FROM debian:bookworm
+FROM ubuntu:22.04
 
 ENV SHELL /bin/bash
 
 ARG KUBECTL_ARCH=amd64
-ARG KUBECTL_VERSION=v1.27.1
-ARG KIND_VERSION=v0.18.0
+ARG KUBECTL_VERSION=v1.28.2
 
 SHELL ["/bin/bash", "-c"]
 
@@ -21,17 +20,11 @@ RUN export DEBIAN_FRONTEND=noninteractive \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
 
-# Using Rust nightly
 RUN curl -sSf https://sh.rustup.rs | sh -s -- -y \
-  && ~/.cargo/bin/rustup install nightly \
-  && ~/.cargo/bin/rustup default nightly
+  && ~/.cargo/bin/rustup install stable \
+  && ~/.cargo/bin/rustup update stable
 
 ENV PATH="$HOME/.cargo/bin:$PATH"
-
-# Install - kind
-RUN curl -Lo ./kind https://kind.sigs.k8s.io/dl/${KIND_VERSION}/kind-linux-amd64 \
-  && chmod +x ./kind \
-  && mv ./kind /usr/local/bin/kind
 
 # Install - kubectl
 RUN curl -sL "https://dl.k8s.io/release/${KUBECTL_VERSION}/bin/linux/${KUBECTL_ARCH}/kubectl" -o /usr/local/bin/kubectl \
