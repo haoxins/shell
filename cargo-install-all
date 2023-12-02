@@ -10,10 +10,3 @@ cargo install fd-find --locked
 cargo install ripgrep --locked
 # du
 cargo install du-dust --locked
-
-#
-# Others
-#
-
-# Nushell
-cargo install nu --locked
