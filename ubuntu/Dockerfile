@@ -3,7 +3,7 @@ FROM ubuntu:23.10
 ENV SHELL /bin/bash
 
 ARG KUBECTL_ARCH=amd64
-ARG KUBECTL_VERSION=v1.28.2
+ARG KUBECTL_VERSION=v1.29.3
 
 SHELL ["/bin/bash", "-c"]
 
@@ -32,8 +32,3 @@ RUN curl -sL "https://dl.k8s.io/release/${KUBECTL_VERSION}/bin/linux/${KUBECTL_A
   && echo "$(cat /tmp/kubectl.sha256) /usr/local/bin/kubectl" | sha256sum --check \
   && rm /tmp/kubectl.sha256 \
   && chmod +x /usr/local/bin/kubectl
-
-# Install - kustomize
-RUN curl -s "https://raw.githubusercontent.com/kubernetes-sigs/kustomize/master/hack/install_kustomize.sh"  | bash \
-  && chmod +x ./kustomize \
-  && mv ./kustomize /usr/local/bin/kustomize

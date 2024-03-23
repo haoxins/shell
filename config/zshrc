@@ -21,6 +21,7 @@ alias find=fd
 alias grep=rg
 alias du=dust
 alias ps=procs
+alias diff=difft
 
 alias c=clear
 alias k=kubectl
