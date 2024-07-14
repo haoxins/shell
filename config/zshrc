@@ -11,17 +11,12 @@ source $ZSH/oh-my-zsh.sh
 export PATH=$PATH:$HOME/go/bin
 export PATH=$PATH:$HOME/github/haoxins/shell
 
-export JAVA_HOME=$(/usr/libexec/java_home -v 17)
 export GITHUB_DIR=$HOME/github
-export SPRING_PROFILES_ACTIVE=local
 
 # Modern CLIs
-alias ls=exa
-alias find=fd
 alias grep=rg
-alias du=dust
-alias ps=procs
 alias diff=difft
+alias curl=xh
 
 alias c=clear
 alias k=kubectl

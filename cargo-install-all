@@ -1,14 +1,8 @@
 #!/usr/bin/env zsh
 
-# ls
-cargo install exa --locked
-# ps
-cargo install procs --locked
 # diff
-cargo install difftastic --locked
-# find
-cargo install fd-find --locked
+cargo install difftastic
 # grep
-cargo install ripgrep --locked
-# du
-cargo install du-dust --locked
+cargo install ripgrep
+# curl
+cargo install xh
